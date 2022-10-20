@@ -3,11 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.3.32901.215
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GamesWorkshop", "GamesWorkShop\GamesWorkshop.csproj", "{321E5C49-838D-434F-8DC6-DEA9087BC6F8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GamesWorkshop", "GamesWorkShop\GamesWorkshop.csproj", "{321E5C49-838D-434F-8DC6-DEA9087BC6F8}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Domain", "Domain", "{8B6EBB80-264E-45F3-AEEF-77E35B1DC79C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GamesWorkshop.Domain", "GamesWorkshop.Domain\GamesWorkshop.Domain.csproj", "{680BFF40-36FC-4E86-97FB-25DFD97997F5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GamesWorkshop.Domain", "GamesWorkshop.Domain\GamesWorkshop.Domain.csproj", "{680BFF40-36FC-4E86-97FB-25DFD97997F5}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DAL", "DAL", "{A5040B44-91EA-4B9A-AEFB-0267136923FE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GamesWorshop.DAL", "GamesWorshop.DAL\GamesWorshop.DAL.csproj", "{0D049728-3239-40A9-9316-B2C6847E3535}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,12 +27,17 @@ Global
 		{680BFF40-36FC-4E86-97FB-25DFD97997F5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{680BFF40-36FC-4E86-97FB-25DFD97997F5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{680BFF40-36FC-4E86-97FB-25DFD97997F5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0D049728-3239-40A9-9316-B2C6847E3535}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0D049728-3239-40A9-9316-B2C6847E3535}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0D049728-3239-40A9-9316-B2C6847E3535}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0D049728-3239-40A9-9316-B2C6847E3535}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{680BFF40-36FC-4E86-97FB-25DFD97997F5} = {8B6EBB80-264E-45F3-AEEF-77E35B1DC79C}
+		{0D049728-3239-40A9-9316-B2C6847E3535} = {A5040B44-91EA-4B9A-AEFB-0267136923FE}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {A8B07486-9F7D-44F2-AC68-097D2D52979A}

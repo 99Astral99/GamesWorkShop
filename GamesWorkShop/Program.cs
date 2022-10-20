@@ -1,7 +1,15 @@
+using GamesWorshop.DAL;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddDbContext<AppDbContext>(options =>
+{
+    var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+    options.UseSqlServer(connectionString);
+});
 
 var app = builder.Build();
 
