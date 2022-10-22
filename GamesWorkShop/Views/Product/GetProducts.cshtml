@@ -1,0 +1,18 @@
+﻿@model List<GamesWorkshop.Domain.Entities.Product>;
+
+@{
+    ViewData["Title"] = "GetProducts";
+}
+
+@foreach (var product in Model)
+{
+    <ul>
+            <li><h2>@product.Name</h2></li>
+            <li><p>Price: @product.Price</p></li>
+            <li><p>Description: @product.Description</p></li>
+            <li><p>Amount: @product.Amount</p></li>
+            <li><p>Category: @product.Category</p></li>
+    </ul>
+    <br />
+}
+
