@@ -34,9 +34,9 @@ namespace GamesWorshop.DAL.Repositories
             return await _dbContext.Products.FirstOrDefaultAsync(p => p.Id == id);
         }
 
-        public async Task<Product> GetByCategory(int category)
+        public async Task<IEnumerable<Product>> GetProductsByCategory(int category)
         {
-            return await _dbContext.Products.FirstOrDefaultAsync(p => (int)p.Category == category);
+            return await _dbContext.Products.Where(p => (int)p.Category == category).ToListAsync();
         }
 
         public async Task<Product> GetByName(string name)

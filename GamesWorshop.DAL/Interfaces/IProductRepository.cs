@@ -11,6 +11,6 @@ namespace GamesWorshop.DAL.Interfaces
     public interface IProductRepository:IBaseRepository<Product>
     {
         Task<Product> GetByName(string name);
-        Task<Product> GetByCategory(int category);
+        Task <IEnumerable<Product>> GetProductsByCategory(int category);
     }
 }
