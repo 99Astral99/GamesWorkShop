@@ -1,24 +1,23 @@
-﻿using GamesWorkshop.Domain.Entities;
-using GamesWorshop.DAL.Interfaces;
+﻿using GamesWorkshop.Service.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GamesWorkshop.Controllers
 {
     public class ProductController : Controller
     {
-        private readonly IProductRepository _productRepository;
-        public ProductController(IProductRepository productRepository)
+        private readonly IProductService _productService;
+        public ProductController(IProductService productService)
         {
-            _productRepository = productRepository;
+            _productService = productService;
         }
 
         [HttpGet]
         public async Task<IActionResult> GetProducts()
         {
-            var response = await _productRepository.Select();
+            var response = await _productService.GetProducts();
 
 
-            return View(response);
+            return View(response.Data);
         }
     }
 }

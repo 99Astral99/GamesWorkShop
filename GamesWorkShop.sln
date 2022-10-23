@@ -11,7 +11,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GamesWorkshop.Domain", "Gam
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DAL", "DAL", "{A5040B44-91EA-4B9A-AEFB-0267136923FE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GamesWorshop.DAL", "GamesWorshop.DAL\GamesWorshop.DAL.csproj", "{0D049728-3239-40A9-9316-B2C6847E3535}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GamesWorshop.DAL", "GamesWorshop.DAL\GamesWorshop.DAL.csproj", "{0D049728-3239-40A9-9316-B2C6847E3535}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{4F4FCCCD-4404-45E9-BDB2-E2061E69A24D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GamesWorkshop.Service", "GamesWorkshop.Service\GamesWorkshop.Service.csproj", "{B84D09E1-ACCC-4754-B21A-6A0DF127861A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -31,6 +35,10 @@ Global
 		{0D049728-3239-40A9-9316-B2C6847E3535}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0D049728-3239-40A9-9316-B2C6847E3535}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0D049728-3239-40A9-9316-B2C6847E3535}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B84D09E1-ACCC-4754-B21A-6A0DF127861A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B84D09E1-ACCC-4754-B21A-6A0DF127861A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B84D09E1-ACCC-4754-B21A-6A0DF127861A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B84D09E1-ACCC-4754-B21A-6A0DF127861A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -38,6 +46,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{680BFF40-36FC-4E86-97FB-25DFD97997F5} = {8B6EBB80-264E-45F3-AEEF-77E35B1DC79C}
 		{0D049728-3239-40A9-9316-B2C6847E3535} = {A5040B44-91EA-4B9A-AEFB-0267136923FE}
+		{B84D09E1-ACCC-4754-B21A-6A0DF127861A} = {4F4FCCCD-4404-45E9-BDB2-E2061E69A24D}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {A8B07486-9F7D-44F2-AC68-097D2D52979A}

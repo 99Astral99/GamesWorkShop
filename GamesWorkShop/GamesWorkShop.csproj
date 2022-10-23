@@ -12,6 +12,7 @@
 
 	<ItemGroup>
 		<ProjectReference Include="..\GamesWorkshop.Domain\GamesWorkshop.Domain.csproj" />
+		<ProjectReference Include="..\GamesWorkshop.Service\GamesWorkshop.Service.csproj" />
 		<ProjectReference Include="..\GamesWorshop.DAL\GamesWorshop.DAL.csproj" />
 	</ItemGroup>
 </Project>

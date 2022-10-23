@@ -1,3 +1,5 @@
+using GamesWorkshop.Service.Implementations;
+using GamesWorkshop.Service.Interfaces;
 using GamesWorshop.DAL;
 using GamesWorshop.DAL.Interfaces;
 using GamesWorshop.DAL.Repositories;
@@ -13,6 +15,7 @@ builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(connectionString);
 });
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
+builder.Services.AddScoped<IProductService, ProductService>();
 
 var app = builder.Build();
 
