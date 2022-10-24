@@ -48,5 +48,13 @@ namespace GamesWorshop.DAL.Repositories
         {
             return await _dbContext.Products.ToListAsync();
         }
+
+        public async Task<Product> Update(Product entity)
+        {
+            _dbContext.Products.Update(entity);
+            await _dbContext.SaveChangesAsync();
+
+            return entity;
+        }
     }
 }
