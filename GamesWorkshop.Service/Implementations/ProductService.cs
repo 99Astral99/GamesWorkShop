@@ -18,21 +18,24 @@ namespace GamesWorkshop.Service.Implementations
 
         public async Task<IBaseResponse<IEnumerable<Product>>> GetProducts()
         {
-            var baseResponse = new BaseResponse<IEnumerable<Product>>();
             try
             {
                 var products = await _productRepository.Select();
                 if (products.Count() == 0)
                 {
-                    baseResponse.Description = "Zero items found";
-                    baseResponse.StatusCode = StatusCode.OK;
-                    return baseResponse;
+                    return new BaseResponse<IEnumerable<Product>>()
+                    {
+                        Description = "Zero items found",
+                        StatusCode = StatusCode.OK
+                    };
                 }
 
-                baseResponse.Data = products;
-                baseResponse.StatusCode = StatusCode.OK;
+                return new BaseResponse<IEnumerable<Product>>()
+                {
+                    StatusCode = StatusCode.OK,
+                    Data = products
+                };
 
-                return baseResponse;
             }
             catch (Exception ex)
             {
@@ -44,18 +47,21 @@ namespace GamesWorkshop.Service.Implementations
         }
         public async Task<IBaseResponse<Product>> GetProduct(int id)
         {
-            var baseResponse = new BaseResponse<Product>();
             try
             {
                 var product = await _productRepository.Get(id);
                 if (product == null || product.Id != id)
                 {
-                    baseResponse.Description = "Item not found";
-                    baseResponse.StatusCode = StatusCode.ProductNotFound;
-                    return baseResponse;
+                    return new BaseResponse<Product>
+                    {
+                        Description = "Item not found",
+                        StatusCode = StatusCode.ProductNotFound
+                    };
                 }
-                baseResponse.Data = product;
-                return baseResponse;
+                return new BaseResponse<Product>
+                {
+                    Data = product
+                };
 
             }
             catch (Exception ex)
@@ -69,18 +75,21 @@ namespace GamesWorkshop.Service.Implementations
         }
         public async Task<IBaseResponse<Product>> GetByName(string name)
         {
-            var baseResponse = new BaseResponse<Product>();
             try
             {
                 var product = await _productRepository.GetByName(name);
                 if (product == null || product.Name != name)
                 {
-                    baseResponse.Description = "Item not found";
-                    baseResponse.StatusCode = StatusCode.ProductNotFound;
-                    return baseResponse;
+                    return new BaseResponse<Product>
+                    {
+                        Description = "Item not found",
+                        StatusCode = StatusCode.ProductNotFound
+                    };
                 }
-                baseResponse.Data = product;
-                return baseResponse;
+                return new BaseResponse<Product>
+                {
+                    Data = product
+                };
 
             }
             catch (Exception ex)
@@ -94,18 +103,21 @@ namespace GamesWorkshop.Service.Implementations
         }
         public async Task<IBaseResponse<IEnumerable<Product>>> GetProductsByCategory(int category)
         {
-            var baseResponse = new BaseResponse<IEnumerable<Product>>();
             try
             {
                 var products = await _productRepository.GetProductsByCategory(category);
                 if (products == null)
                 {
-                    baseResponse.Description = "Items not found";
-                    baseResponse.StatusCode = StatusCode.ProductNotFound;
-                    return baseResponse;
+                    return new BaseResponse<IEnumerable<Product>>()
+                    {
+                        Description = "Items not found",
+                        StatusCode = StatusCode.ProductNotFound
+                    };
                 }
-                baseResponse.Data = products;
-                return baseResponse;
+                return new BaseResponse<IEnumerable<Product>>()
+                {
+                    Data = products
+                };
 
             }
             catch (Exception ex)
@@ -119,7 +131,6 @@ namespace GamesWorkshop.Service.Implementations
         }
         public async Task<IBaseResponse<ProductViewModel>> CreateProduct(ProductViewModel productViewModel)
         {
-            var baseResponse = new BaseResponse<ProductViewModel>();
             try
             {
                 var product = new Product()
@@ -132,8 +143,6 @@ namespace GamesWorkshop.Service.Implementations
                 };
 
                 await _productRepository.Create(product);
-
-                return baseResponse;
             }
             catch (Exception ex)
             {
@@ -143,26 +152,70 @@ namespace GamesWorkshop.Service.Implementations
                     StatusCode = StatusCode.InternalServerError
                 };
             }
+            return new BaseResponse<ProductViewModel> { };
         }
         public async Task<IBaseResponse<bool>> DeleteProduct(int id)
         {
-            var baseResponse = new BaseResponse<bool>();
             try
             {
                 var product = await _productRepository.Get(id);
                 if (product == null || product.Id != id)
                 {
-                    baseResponse.Description = "Items not found";
-                    baseResponse.StatusCode = StatusCode.ProductNotFound;
-                    return baseResponse;
+                    return new BaseResponse<bool>()
+                    {
+                        Description = "Items not found",
+                        StatusCode = StatusCode.ProductNotFound
+                    };
+
                 }
                 await _productRepository.Delete(product);
+                return new BaseResponse<bool>()
+                {
+                    Data = true,
+                    StatusCode = StatusCode.OK
+                };
 
-                return baseResponse;
             }
             catch (Exception ex)
             {
                 return new BaseResponse<bool>()
+                {
+                    Description = $"[DeleteProduct] : {ex.Message}",
+                    StatusCode = StatusCode.InternalServerError
+                };
+            }
+        }
+        public async Task<IBaseResponse<Product>> Edit(int id, ProductViewModel vm)
+        {
+            try
+            {
+                var product = await _productRepository.Get(id);
+                if (product == null)
+                {
+                    return new BaseResponse<Product>()
+                    {
+                        Description = "Product not found",
+                        StatusCode = StatusCode.ProductNotFound
+                    };
+                }
+
+                product.Name = vm.Name;
+                product.Price = vm.Price;
+                product.Description = vm.Description;
+                product.Amount = vm.Amount;
+                //category
+
+                await _productRepository.Update(product);
+
+                return new BaseResponse<Product>()
+                {
+                    Data = product,
+                    StatusCode = StatusCode.OK
+                };
+            }
+            catch (Exception ex)
+            {
+                return new BaseResponse<Product>()
                 {
                     Description = $"[DeleteProduct] : {ex.Message}",
                     StatusCode = StatusCode.InternalServerError

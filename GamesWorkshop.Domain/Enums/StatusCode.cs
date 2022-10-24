@@ -9,7 +9,7 @@ namespace GamesWorkshop.Domain.Enums
     public enum StatusCode
     {
         //Product
-        ProductNotFound = 0,
+        ProductNotFound = 11,
 
 
         OK = 200,

@@ -11,6 +11,8 @@ namespace GamesWorkshop.Domain.Responses
 
     public interface IBaseResponse<T>
     {
-        T Data { get; set; }
+        string Description { get; }
+        StatusCode StatusCode { get; }
+        T Data { get; }
     }
 }
