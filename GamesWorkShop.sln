@@ -15,7 +15,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GamesWorshop.DAL", "GamesWo
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{4F4FCCCD-4404-45E9-BDB2-E2061E69A24D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GamesWorkshop.Service", "GamesWorkshop.Service\GamesWorkshop.Service.csproj", "{B84D09E1-ACCC-4754-B21A-6A0DF127861A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GamesWorkshop.Service", "GamesWorkshop.Service\GamesWorkshop.Service.csproj", "{B84D09E1-ACCC-4754-B21A-6A0DF127861A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -34,9 +34,9 @@ namespace GamesWorshop.DAL.Repositories
             return await _dbContext.Products.FirstOrDefaultAsync(p => p.Id == id);
         }
 
-        public async Task<IEnumerable<Product>> GetProductsByCategory(int category)
+        public async Task<IEnumerable<Product>> GetProductsByCategory(string category)
         {
-            return await _dbContext.Products.Where(p => (int)p.Category == category).ToListAsync();
+            return await _dbContext.Products.Where(p => (int)p.Category == Convert.ToInt32(category)).ToListAsync();
         }
 
         public async Task<Product> GetByName(string name)
@@ -55,6 +55,11 @@ namespace GamesWorshop.DAL.Repositories
             await _dbContext.SaveChangesAsync();
 
             return entity;
+        }
+
+        public async Task<List<Product>> GetTwelveMostRecentProducts()
+        {
+            return await _dbContext.Products.OrderByDescending(d => d.CreatedDate).Take(12).ToListAsync();
         }
     }
 }
