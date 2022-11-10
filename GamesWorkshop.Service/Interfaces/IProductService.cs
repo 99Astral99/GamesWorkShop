@@ -1,17 +1,18 @@
 ﻿using GamesWorkshop.Domain.Entities;
 using GamesWorkshop.Domain.Responses;
-using GamesWorkshop.Domain.View.Product;
+using GamesWorkshop.Domain.View.ProductModels;
 
 namespace GamesWorkshop.Service.Interfaces
 {
     public interface IProductService
     {
-        Task<IBaseResponse<IEnumerable<Product>>> GetProductsByCategory(int category);
-        Task<IBaseResponse<IEnumerable<Product>>> GetProducts();
-        Task<IBaseResponse<Product>> GetProduct(int id);
-        Task<IBaseResponse<Product>> GetByName(string name);
-        Task<IBaseResponse<ProductViewModel>> CreateProduct(ProductViewModel productViewModel);
+        Task<IBaseResponse<IEnumerable<ProductViewModel>>> GetProductsByCategory(string category);
+        Task<IBaseResponse<IEnumerable<ProductViewModel>>> GetTwelveMostRecentProducts();
+        Task<IBaseResponse<IEnumerable<ProductViewModel>>> GetProducts();
+        Task<IBaseResponse<ProductDetailsViewModel>> GetProduct(int id);
+        Task<IBaseResponse<ProductDetailsViewModel>> GetByName(string name);
+        Task<IBaseResponse<Product>> CreateProduct(ProductDetailsViewModel productViewModel);
         Task<IBaseResponse<bool>> DeleteProduct(int id);
-        Task<IBaseResponse<Product>> Edit(int id, ProductViewModel vm);
+        Task<IBaseResponse<Product>> Edit(int id, ProductDetailsViewModel vm);
     }
 }
