@@ -1,0 +1,108 @@
+﻿@*@model List<GamesWorkshop.Domain.Entities.Product>;*@
+@model List<GamesWorkshop.Domain.View.ProductModels.ProductViewModel>;
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="banner">
+		<div class="container">
+<div class="banner-bottom">
+	<div class="banner-bottom-right">
+		<div  class="callbacks_container">
+					<ul class="rslides" id="slider4">
+					<li>
+								<div class="banner-info">
+									<h3>Join The Universe</h3>
+									<p>Start your shopping here...</p>
+								</div>
+							</li>
+							<li>
+								<div class="banner-info">
+								   <h3>Shop Online</h3>
+									<p>Start your shopping here...</p>
+								</div>
+							</li>
+							<li>
+								<div class="banner-info">
+								  <h3>Create Your Own Army</h3>
+									<p>Start your shopping here...</p>
+								</div>								
+							</li>
+						</ul>
+					</div>
+					<!--banner-->
+				  <script src="~/js/responsiveslides.min.js"></script>
+			 <script>
+				// You can also use "$(window).load(function() {"
+				$(function () {
+				  // Slideshow 4
+				  $("#slider4").responsiveSlides({
+					auto: true,
+					pager:true,
+					nav:false,
+					speed: 500,
+					namespace: "callbacks",
+					before: function () {
+					  $('.events').append("<li>before event fired.</li>");
+					},
+					after: function () {
+					  $('.events').append("<li>after event fired.</li>");
+					}
+				  });
+
+				});
+			  </script>
+	</div>
+	<div class="clearfix"> </div>
+	</div>
+		<div class="shop">
+			<a asp-controller="Product" asp-action="GetProducts">SHOP COLLECTION NOW</a>
+		</div>
+	</div>
+</div>
+
+		<div class="container">
+			<div class="main-content">
+				<div class="online-strip">
+					<div class="col-md-4 follow-us">
+						<h3>follow us : <a class="twitter" href="#"></a><a class="facebook" href="#"></a></h3>
+					</div>
+					<div class="col-md-4 shipping-grid">
+						<div class="shipping">
+							<img src="~/images/shipping.png" alt="" />
+						</div>
+						<div class="shipping-text">
+							<h3>Free Shipping</h3>
+							<p>on orders over $ 199</p>
+						</div>
+						<div class="clearfix"></div>
+					</div>
+					<div class="col-md-4 online-order">
+						<p>Order online</p>
+						<h3>Tel:999 4567 8902</h3>
+					</div>
+					<div class="clearfix"></div>
+				</div>
+				<div class="products-grid">
+				<header>
+					<h3 class="head text-center">Latest Products</h3>
+				</header>
+			@foreach (var product in Model)
+				{
+					<div class="col-md-4 product simpleCart_shelfItem text-center">
+							<a asp-controller="Product" asp-action="GetProduct" asp-route-id = "@product.Id"><img src="@product.ImageSrc" alt="" /></a>
+							<div class="mask">
+								<a asp-controller="Product" asp-action="GetProduct" asp-route-id = "@product.Id">Quick View</a>
+							</div>
+							<a class="product_name" asp-controller="Product" asp-action="GetProduct">@product.Name</a>
+							<p><a class="item_add" href="#"><i></i> <span class="item_price">@product.Price$</span></a></p>
+							<p><a class="item_add" asp-controller="Cart" asp-action="Add" asp-route-id="@product.Id"><i></i> <span class="item_price">Add to cart</span></a></p>
+					</div>
+				}
+					<div class="clearfix"></div>
+				</div>
+			</div>
+		</div>
+

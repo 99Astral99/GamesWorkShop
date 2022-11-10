@@ -1,4 +1,4 @@
-﻿using GamesWorkshop.Domain.View.Product;
+﻿using GamesWorkshop.Domain.View.ProductModels;
 using GamesWorkshop.Service.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -13,13 +13,24 @@ namespace GamesWorkshop.Controllers
             _productService = productService;
         }
 
+        public async Task<IActionResult> Index()
+        {
+            var response = await _productService.GetTwelveMostRecentProducts();
+            if (response.StatusCode == Domain.Enums.StatusCode.OK)
+            {
+                return View(response.Data);
+            }
+
+            return RedirectToAction("Error");
+        }
+
         [HttpGet]
         public async Task<IActionResult> GetProducts()
         {
             var response = await _productService.GetProducts();
             if (response.StatusCode == Domain.Enums.StatusCode.OK)
             {
-                return View(response.Data);
+                return View(response.Data.ToList());
             }
 
             return RedirectToAction("Error");
@@ -34,6 +45,17 @@ namespace GamesWorkshop.Controllers
                 return View(response.Data);
             }
 
+            return RedirectToAction("Error");
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetProductsByCategory(string category)
+        {
+            var response = await _productService.GetProductsByCategory(category);
+            if (response.StatusCode == Domain.Enums.StatusCode.OK)
+            {
+                return View(response.Data.ToList());
+            }
             return RedirectToAction("Error");
         }
 
@@ -67,11 +89,11 @@ namespace GamesWorkshop.Controllers
 
         [HttpPost]
         [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> Save(ProductViewModel vm)
+        public async Task<IActionResult> Save(ProductDetailsViewModel vm)
         {
             if (ModelState.IsValid)
             {
-                if(vm.Id == 0)
+                if (vm.Id == 0)
                 {
                     await _productService.CreateProduct(vm);
                 }

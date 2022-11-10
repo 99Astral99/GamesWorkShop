@@ -1,0 +1,119 @@
+﻿
+@{
+    ViewData["Title"] = "HomePage";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="banner">
+		<div class="container">
+<div class="banner-bottom">
+	<div class="banner-bottom-right">
+		<div  class="callbacks_container">
+					<ul class="rslides" id="slider4">
+					<li>
+								<div class="banner-info">
+									<h3>Join The Universe</h3>
+									<p>Start your shopping here...</p>
+								</div>
+							</li>
+							<li>
+								<div class="banner-info">
+								   <h3>Shop Online</h3>
+									<p>Start your shopping here...</p>
+								</div>
+							</li>
+							<li>
+								<div class="banner-info">
+								  <h3>Create Your Own Army</h3>
+									<p>Start your shopping here...</p>
+								</div>								
+							</li>
+						</ul>
+					</div>
+					<!--banner-->
+				  <script src="~/js/responsiveslides.min.js"></script>
+			 <script>
+				// You can also use "$(window).load(function() {"
+				$(function () {
+				  // Slideshow 4
+				  $("#slider4").responsiveSlides({
+					auto: true,
+					pager:true,
+					nav:false,
+					speed: 500,
+					namespace: "callbacks",
+					before: function () {
+					  $('.events').append("<li>before event fired.</li>");
+					},
+					after: function () {
+					  $('.events').append("<li>after event fired.</li>");
+					}
+				  });
+
+				});
+			  </script>
+	</div>
+	<div class="clearfix"> </div>
+	</div>
+		<div class="shop">
+			<a href="single.html">SHOP COLLECTION NOW</a>
+		</div>
+	</div>
+</div>
+		<!-- content-section-starts-here -->
+		<div class="container">
+			<div class="main-content">
+				<div class="online-strip">
+					<div class="col-md-4 follow-us">
+						<h3>follow us : <a class="twitter" href="#"></a><a class="facebook" href="#"></a></h3>
+					</div>
+					<div class="col-md-4 shipping-grid">
+						<div class="shipping">
+							<img src="images/shipping.png" alt="" />
+						</div>
+						<div class="shipping-text">
+							<h3>Free Shipping</h3>
+							<p>on orders over $ 199</p>
+						</div>
+						<div class="clearfix"></div>
+					</div>
+					<div class="col-md-4 online-order">
+						<p>Order online</p>
+						<h3>Tel:999 4567 8902</h3>
+					</div>
+					<div class="clearfix"></div>
+				</div>
+				<div class="products-grid">
+				<header>
+					<h3 class="head text-center" style="color:black">Latest Products</h3>
+				</header>
+					<div class="col-md-4 product simpleCart_shelfItem text-center">
+						<a asp-controller="Product" asp-action="GetProduct" asp-route-id = "1"><img src="https://www.games-workshop.com/resources/catalog/product/600x620/99120102140_CSMPossessedLead.jpg" alt="" /></a>
+						<div class="mask">
+							<a asp-controller="Product" asp-action="GetProduct" asp-route-id = "1">Quick View</a>
+						</div>
+						<a class="product_name" href="single.html">Possesed</a>
+						<p><a class="item_add" href="#"><i></i> <span class="item_price">$39</span></a></p>
+					</div>
+					<div class="col-md-4 product simpleCart_shelfItem text-center">
+						<a href="single.html"><img src="~/images/combat_patrol.webp" alt="" /></a>
+						<div class="mask">
+							<a href="single.html">Quick View</a>
+						</div>
+						<a class="product_name" href="single.html">Combat Patrol: Genestealer Cultsr</a>
+						<p><a class="item_add" href="#"><i></i> <span class="item_price">$122</span></a></p>
+					</div>
+					<div class="col-md-4 product simpleCart_shelfItem text-center">
+						<a href="single.html"><img src="https://www.games-workshop.com/resources/catalog/product/920x950/99120102041_LordofSkulls01.jpg" alt="" /></a>
+						<div class="mask">
+							<a href="single.html">Quick View</a>
+						</div>
+						<a class="product_name" href="single.html">Khorne Lord of Skulls</a>
+						<p><a class="item_add" href="#"><i></i> <span class="item_price">$130</span></a></p>
+					</div>
+					<div class="clearfix"></div>
+				</div>
+			</div>
+
+		</div>
+		<!-- content-section-ends-here -->

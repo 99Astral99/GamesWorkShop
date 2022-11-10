@@ -1,18 +1,18 @@
-﻿@model IEnumerable<GamesWorkshop.Domain.Entities.Product>;
+﻿@model List<GamesWorkshop.Domain.View.ProductModels.ProductViewModel>;
 
 @{
-    ViewData["Title"] = "GetProducts";
+	ViewData["Title"] = "GetProducts";
+	Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 @foreach (var product in Model)
 {
+    <h2>@product.Name</h2>
     <ul>
-            <li><h2>@product.Name</h2></li>
             <li><p>Price: @product.Price</p></li>
-            <li><p>Description: @product.Description</p></li>
-            <li><p>Amount: @product.Amount</p></li>
             <li><p>Category: @product.Category</p></li>
     </ul>
+    <img src="@product.ImageSrc">
     <br />
 }
 
