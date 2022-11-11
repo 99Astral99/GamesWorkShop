@@ -6,14 +6,15 @@ using GamesWorkshop.Domain.Responses;
 using GamesWorkshop.Domain.View.ProductModels;
 using GamesWorkshop.Service.Interfaces;
 using GamesWorshop.DAL.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace GamesWorkshop.Service.Implementations
 {
     public class ProductService : IProductService
     {
-        private readonly IProductRepository _productRepository;
+        private readonly IBaseRepository<Product> _productRepository;
         private readonly IMapper _mapper;
-        public ProductService(IProductRepository productRepository, IMapper mapper)
+        public ProductService(IBaseRepository<Product> productRepository, IMapper mapper)
         {
             _productRepository = productRepository;
             _mapper = mapper;
@@ -23,7 +24,7 @@ namespace GamesWorkshop.Service.Implementations
         {
             try
             {
-                var products = await _productRepository.Select();
+                var products = await _productRepository.GetAll().ToListAsync();
                 if (products.Count() == 0)
                 {
                     return new BaseResponse<IEnumerable<ProductViewModel>>()
@@ -54,7 +55,8 @@ namespace GamesWorkshop.Service.Implementations
         {
             try
             {
-                var products = await _productRepository.GetTwelveMostRecentProducts();
+                var products = await _productRepository.GetAll().OrderByDescending(d => d.CreatedDate).Take(12).ToListAsync();
+                //return await _dbContext.Products.OrderByDescending(d => d.CreatedDate).Take(12).ToListAsync();
                 if (products.Count() == 0)
                 {
                     return new BaseResponse<IEnumerable<ProductViewModel>>()
@@ -84,7 +86,7 @@ namespace GamesWorkshop.Service.Implementations
         {
             try
             {
-                var product = await _productRepository.Get(id);
+                var product = await _productRepository.GetAll().FirstOrDefaultAsync(p => p.Id == id);
                 if (product == null || product.Id != id)
                 {
                     return new BaseResponse<ProductDetailsViewModel>
@@ -116,7 +118,7 @@ namespace GamesWorkshop.Service.Implementations
         {
             try
             {
-                var product = await _productRepository.GetByName(name);
+                var product = await _productRepository.GetAll().FirstOrDefaultAsync(p => p.Name == name);
                 if (product == null || product.Name != name)
                 {
                     return new BaseResponse<ProductDetailsViewModel>
@@ -148,7 +150,7 @@ namespace GamesWorkshop.Service.Implementations
         {
             try
             {
-                var products = await _productRepository.GetProductsByCategory(category);
+                var products = await _productRepository.GetAll().Where(p => (int)p.Category == Convert.ToInt32(category)).ToListAsync();
                 if (products == null)
                 {
                     return new BaseResponse<IEnumerable<ProductViewModel>>()
@@ -191,6 +193,7 @@ namespace GamesWorkshop.Service.Implementations
                     Image2 = productViewModel.Image2,
                     Image3 = productViewModel.Image3,
                     Image4 = productViewModel.Image4,
+                    Image5 = productViewModel.Image5,
                     CreatedDate = productViewModel.CreatedDate,
                 };
 
@@ -210,7 +213,7 @@ namespace GamesWorkshop.Service.Implementations
         {
             try
             {
-                var product = await _productRepository.Get(id);
+                var product = await _productRepository.GetAll().FirstOrDefaultAsync(p => p.Id == id);
                 if (product == null || product.Id != id)
                 {
                     return new BaseResponse<bool>()
@@ -241,7 +244,7 @@ namespace GamesWorkshop.Service.Implementations
         {
             try
             {
-                var product = await _productRepository.Get(id);
+                var product = await _productRepository.GetAll().FirstOrDefaultAsync(p => p.Id == id);
                 if (product == null)
                 {
                     return new BaseResponse<Product>()

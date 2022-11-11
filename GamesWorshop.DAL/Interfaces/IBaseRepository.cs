@@ -10,8 +10,7 @@ namespace GamesWorshop.DAL.Interfaces
     {
         Task<bool> Create(T entity);
         Task<T> Update(T entity);
-        Task<T> Get(int id);
-        Task<IEnumerable<T>> Select();
+        IQueryable<T> GetAll();
         Task<bool> Delete(T entity);
     }
 }
