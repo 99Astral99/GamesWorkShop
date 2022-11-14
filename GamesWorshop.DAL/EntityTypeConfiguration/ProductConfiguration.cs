@@ -16,7 +16,10 @@ namespace GamesWorshop.DAL.Configurations
                 .HasMaxLength(50)
                 .IsRequired();
 
-            builder.Property(b => b.Description).HasMaxLength(250);
+            builder.Property(d => d.Description)
+                .HasColumnType("text");
+            builder.Property(f => f.Features)
+                .HasColumnType("text");
 
             builder.Property(b => b.Amount).IsRequired();
             builder.Property(b => b.Price).IsRequired();

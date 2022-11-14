@@ -29,8 +29,8 @@
 					{
 						<div class="header-top-left">
 							<ul>
-								<li><a href="account.html"><span class="glyphicon glyphicon-user"> </span>Login</a></li>
-								<li><a href="register.html"><span class="glyphicon glyphicon-lock"> </span>Create an Account</a></li>			
+								<li><a asp-controller="Account" asp-action="Login"><span class="glyphicon glyphicon-user"> </span>Login</a></li>
+								<li><a asp-controller="Account" asp-action="Register"><span class="glyphicon glyphicon-lock"> </span>Create an Account</a></li>			
 							</ul>
 						</div>
 					}
@@ -42,6 +42,11 @@
 							<p><a href="javascript:;" class="simpleCart_empty">Empty cart</a></p>
 							<div class="clearfix"> </div>
 						</div>
+						@if(User.Identity.IsAuthenticated){
+							<div>
+									<a asp-controller="Account" asp-action="Logout"><span class="glyphicon glyphicon-user" style="color:white"> </span>Logout</a>
+							</div>
+						}
 				</div>
 				<div class="clearfix"> </div>
 			</div>
@@ -114,71 +119,7 @@
         </main>
 	</div>
 		@*@await Html.PartialAsync("FooterPartial");*@
-		<div class="other-products">
-		<div class="container">
-			<h3 class="like text-center">Featured Collection</h3>        			
-					 <ul id="flexiselDemo3">
-						<li><a asp-controller="Product" asp-route-id="27" asp-action="GetProduct"><img src="https://www.games-workshop.com/resources/catalog/product/920x950/99120110070_NecronDestroyerretoolLead.jpg" class="img-responsive" alt="" /></a>
-							<div class="product liked-product simpleCart_shelfItem">
-							<a class="like_name" asp-controller="Product" asp-action="GetProduct" asp-route-Id = "27">Lokhust Destroyer</a>
-							<p><a class="item_add" href="#"><i></i> <span class=" item_price">$21</span></a></p>
-							</div>
-						</li>
-						<li><a asp-controller="Product" asp-route-id="28" asp-action="GetProduct"><img src="https://www.games-workshop.com/resources/catalog/product/920x950/99120110044_LokhustHeavyDestroyerLead.jpg" class="img-responsive" alt="" /></a>
-							<div class="product liked-product simpleCart_shelfItem">
-							<a class="like_name" asp-controller="Product" asp-action="GetProduct" asp-route-Id = "28">Lokhust Heavy Destroyer</a>
-							<p><a class="item_add" href="#"><i></i> <span class=" item_price">$27</span></a></p>
-							</div>
-						</li>
-						<li><a asp-controller="Product" asp-route-id="29" asp-action="GetProduct"><img src="https://www.games-workshop.com/resources/catalog/product/920x950/60030107007_GKCodexStdEdLead.jpg" class="img-responsive" alt="" /></a>
-							<div class="product liked-product simpleCart_shelfItem">
-							<a class="like_name" asp-controller="Product" asp-action="GetProduct" asp-route-Id = "29">Codex: Grey Knights</a>
-							<p><a class="item_add" href="#"><i></i> <span class=" item_price">$42</span></a></p>
-							</div>
-						</li>
-						<li><a asp-controller="Product" asp-route-id="31" asp-action="GetProduct"><img src="https://www.games-workshop.com/resources/catalog/product/920x950/99120108048_SoBCastigatorLead.jpg" class="img-responsive" alt="" /></a>
-							<div class="product liked-product simpleCart_shelfItem">
-							<a class="like_name" asp-controller="Product" asp-action="GetProduct" asp-route-Id = "31">Castigator</a>
-							<p><a class="item_add" href="#"><i></i> <span class=" item_price">$67.50</span></a></p>
-							</div>
-						</li>
-						<li><a asp-controller="Product" asp-route-id="32" asp-action="GetProduct"><img src="https://www.games-workshop.com/resources/catalog/product/920x950/99120103079_ThrakaLead.jpg" class="img-responsive" alt="" /></a>
-							<div class="product liked-product simpleCart_shelfItem">
-							<a class="like_name" asp-controller="Product" asp-action="GetProduct" asp-route-Id = "32">Ghazghkull Thraka</a>
-							<p><a class="item_add" href="#"><i></i> <span class=" item_price">$55</span></a></p>
-							</div>
-						</li>
-					 </ul>
-					<script type="text/javascript">
-					 $(window).load(function() {
-						$("#flexiselDemo3").flexisel({
-							visibleItems: 4,
-							animationSpeed: 1000,
-							autoPlay: true,
-							autoPlaySpeed: 3000,    		
-							pauseOnHover: true,
-							enableResponsiveBreakpoints: true,
-							responsiveBreakpoints: { 
-								portrait: { 
-									changePoint:480,
-									visibleItems: 1
-								}, 
-								landscape: { 
-									changePoint:640,
-									visibleItems: 2
-								},
-								tablet: { 
-									changePoint:768,
-									visibleItems: 3
-								}
-							}
-						});
 
-					});
-				   </script>
-				   <script type="text/javascript" src="~/js/jquery.flexisel.js"></script>
-				   </div>
-				   </div>
 		<div class="news-letter">
 			<div class="container">
 				<div class="join">
