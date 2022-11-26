@@ -55,6 +55,11 @@ label{
 	text-decoration:none;
 	font-size:13px;
 }
+.header-top-left a {
+	color: #fff;
+	text-decoration: none;
+	font-size: 13px;
+}
 span.glyphicon.glyphicon-user,span.glyphicon.glyphicon-lock {
     font-size: 10px;
     vertical-align: initial;
@@ -1621,7 +1626,7 @@ ul.women_pagenation li.active a{
     padding-bottom: 18px;
 }
 .reg p{
-	color: #CAC9C9;
+	color: gray;
 	margin: 0px 0 0 0;
 	font-size: 14px;
 	line-height: 1.8em;
@@ -1679,7 +1684,7 @@ ul.women_pagenation li.active a{
 }
 .reg-right{
 	float:right;
-	width:47%
+	width:47%;
 }
 p.click a {
 	display: inline-block;
@@ -3049,5 +3054,16 @@ p.right {
 	}
 	p.tab-text {
 		font-size: 15px;
+	}
+	.center {
+		position: absolute;
+		left: 0;
+		right: 0;
+		margin: auto;
+	}
+
+	.swal2-popup {
+		font-size: 1.6rem !important;
+		font-family: Georgia, serif;
 	}
 }

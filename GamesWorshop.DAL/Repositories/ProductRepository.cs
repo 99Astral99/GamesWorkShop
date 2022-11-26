@@ -41,6 +41,5 @@ namespace GamesWorshop.DAL.Repositories
 
             return entity;
         }
-
     }
 }
