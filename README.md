@@ -7,7 +7,7 @@ This is my new pet project, based on .NET 6 (MVC). This will be a store selling 
 - MSSQL
 - Entity Framework Core
 
-##Features
+## Features
 - AutoMapper
 - SweetAlert2
 
