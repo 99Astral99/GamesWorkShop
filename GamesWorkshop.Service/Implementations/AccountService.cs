@@ -101,6 +101,8 @@ namespace GamesWorkshop.Service.Implementations
             var claims = new List<Claim>()
             {
                 new Claim(ClaimTypes.Email, user.Email),
+                new Claim(ClaimTypes.Name, user.Name),
+                new Claim("UserId", user.Id.ToString()),
                 new Claim(ClaimTypes.Role, user.RoleId.ToString()),
             };
 

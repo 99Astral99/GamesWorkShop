@@ -18,6 +18,8 @@
 	<script type="text/javascript" src="~/js/bootstrap-3.1.1.min.js" asp-append-version="true"></script>
 	<script src="~/js/simpleCart.min.js" asp-append-version="true"> </script>
 	<link rel="stylesheet" href="~/css/flexslider.css" asp-append-version="true" type="text/css" media="screen" />
+	<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+	<script src="sweetalert2.all.min.js"></script>
 </head>
 <body>
 	@*@await Html.PartialAsync("HeaderPartial);*@
@@ -33,21 +35,25 @@
 								<li><a asp-controller="Account" asp-action="Register"><span class="glyphicon glyphicon-lock"> </span>Create an Account</a></li>			
 							</ul>
 						</div>
-					}
-				<div class="header-right">
-						<div class="cart box_1">
-							<a href="checkout.html">
-								<h3> <span class="simpleCart_total"> $0.00 </span> (<span id="simpleCart_quantity" class="simpleCart_quantity"> 0 </span>)<img src="~/images/bag.png" alt=""></h3>
-							</a>	
-							<p><a href="javascript:;" class="simpleCart_empty">Empty cart</a></p>
-							<div class="clearfix"> </div>
-						</div>
-						@if(User.Identity.IsAuthenticated){
-							<div>
-									<a asp-controller="Account" asp-action="Logout"><span class="glyphicon glyphicon-user" style="color:white"> </span>Logout</a>
+
+						<div class="header-right">
+							<div class="cart box_1">
+								<a asp-controller="Cart" asp-action="Index">
+									<h3> <span class="simpleCart_total"> $0.00 </span> (<span id="simpleCart_quantity" class="simpleCart_quantity"> 0 </span>)<img src="~/images/bag.png" alt=""></h3>
+								</a>	
+									<p><a a asp-controller="Cart" asp-action="Index" class="simpleCart_empty">Empty cart</a></p>
+								<div class="clearfix"> </div>
 							</div>
-						}
-				</div>
+						</div>
+					}
+					@if(User.Identity.IsAuthenticated){
+							<div class="header-top-left">
+								<ul>
+										<li><a asp-controller="UserAccount" asp-action="Detail"><span class="glyphicon glyphicon-user"> </span>Account</a></li>
+										<li><a asp-controller="Account" asp-action="Logout"><span class="glyphicon glyphicon-lock"> </span>Logout</a></li>
+								</ul>
+							</div>
+					}
 				<div class="clearfix"> </div>
 			</div>
 		</div>
@@ -157,7 +163,7 @@
 					<ul class="f_nav">
 						<li><a href="#">frequently asked  questions</a></li>
 						<li><a href="#">men</a></li>
-						<li><a href="#">women</a></li>
+						<li><a href="#">Necron</a></li>
 						<li><a href="#">accessories</a></li>
 						<li><a href="#">kids</a></li>
 						<li><a href="#">brands</a></li>
@@ -201,5 +207,6 @@
 		  </div>
 		</div>
 		</div>
+		@await RenderSectionAsync("pageScripts", false);
 </body>
 </html>

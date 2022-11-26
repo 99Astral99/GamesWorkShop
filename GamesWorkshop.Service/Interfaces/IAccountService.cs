@@ -6,7 +6,7 @@ namespace GamesWorkshop.Service.Interfaces
 {
     public interface IAccountService
     {
-        public Task<IBaseResponse<ClaimsIdentity>> Register(RegisterViewModel vm);
-        public Task<IBaseResponse<ClaimsIdentity>> Login(LoginViewModel vm);
+        Task<IBaseResponse<ClaimsIdentity>> Register(RegisterViewModel vm);
+        Task<IBaseResponse<ClaimsIdentity>> Login(LoginViewModel vm);
     }
 }

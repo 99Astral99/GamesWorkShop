@@ -1,0 +1,59 @@
+﻿@model GamesWorkshop.Domain.View.ProfileModels.UserAccountViewModel;
+@{
+    ViewData["Title"] = "Detail";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<form method="post" id="profileFormId" style="margin-left:800px; margin-bottom:250px; margin-top:100px">
+    <h2>Profile information</h2>
+  <input asp-for="@Model.Id" hidden="hidden"/>
+  <div class="form-group">
+    <label>Age</label>
+    <input style="width:200px" min="1" max="99" class="form-control" asp-for="@Model.Age">
+  </div>
+  <div class="form-group">
+    <label>Country</label>
+    <select style="width:200px" asp-for="@Model.Country" class="form-control">
+      <option selected="selected">None</option>
+      <option>Russia</option>
+      <option>USA</option>
+    </select>
+  </div>
+   <div class="form-group">
+    <label>Address</label>
+    <textarea style="width:300px;height:100px;resize:vertical;" class="form-control" asp-for="@Model.Address"></textarea>
+    <div class="form-text">Address must between 10 and 250 characters</div>
+  </div>
+  <div class="card-buttons-group">
+      <button class="btn btn-primary" id="saveProfileButtonId">Submit</button>
+  </div>
+</form>
+
+@section pageScripts{
+    <script>
+            $('#saveProfileButtonId').on('click',function(e){
+                e.preventDefault();
+                $.ajax({
+                    url:'@Url.Action("Save", "UserAccount")',
+                    type:'POST',
+                    data:$('#profileFormId').serialize(),
+
+                    success:function(response){
+                        Swal.fire({
+                            title:'Information',
+                            text:response.description,
+                            icon:'success',
+                            confirmButtonText:'Ok'
+                        })
+                    },
+                    error:function(data){
+                        Swal.fire({
+                            title:'Information',
+                            text:"Validation error",
+                            icon:'error',
+                            confirmButtonText:'Ok'
+                        })
+                    }
+                })
+            })
+    </script>
+}

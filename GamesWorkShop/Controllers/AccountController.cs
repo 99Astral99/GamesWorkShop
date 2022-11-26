@@ -8,6 +8,7 @@ using System.Security.Claims;
 
 namespace GamesWorkshop.Controllers
 {
+    [AutoValidateAntiforgeryToken]
     public class AccountController : Controller
     {
         private readonly IMapper _mapper;
@@ -42,7 +43,6 @@ namespace GamesWorkshop.Controllers
         public IActionResult Login() => View();
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login(LoginViewModel vm)
         {
             if (ModelState.IsValid)
@@ -59,12 +59,10 @@ namespace GamesWorkshop.Controllers
             return View(vm);
         }
 
-        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Logout()
         {
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
             return RedirectToAction(nameof(ProductController.Index), "Product");
         }
-
     }
 }

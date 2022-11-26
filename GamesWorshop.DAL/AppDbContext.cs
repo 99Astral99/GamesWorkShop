@@ -18,11 +18,13 @@ namespace GamesWorshop.DAL
             builder.ApplyConfiguration(new ProductConfiguration());
             builder.ApplyConfiguration(new UserConfiguration());
             builder.ApplyConfiguration(new RoleConfiguration());
+            builder.ApplyConfiguration(new UserAccountProfileConfiguration());
             base.OnModelCreating(builder);
         }
 
         public DbSet<Product> Products { get; set; }
         public DbSet<User> Users { get; set; }
+        public DbSet<UserAccount> Profiles { get; set; }
         public DbSet<Role> Roles { get; set; }
     }
 }
