@@ -3,30 +3,67 @@
     ViewData["Title"] = "Detail";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<form method="post" id="profileFormId" style="margin-left:800px; margin-bottom:250px; margin-top:100px">
-    <h2>Profile information</h2>
-  <input asp-for="@Model.Id" hidden="hidden"/>
-  <div class="form-group">
-    <label>Age</label>
-    <input style="width:200px" min="1" max="99" class="form-control" asp-for="@Model.Age">
-  </div>
-  <div class="form-group">
-    <label>Country</label>
-    <select style="width:200px" asp-for="@Model.Country" class="form-control">
-      <option selected="selected">None</option>
-      <option>Russia</option>
-      <option>USA</option>
-    </select>
-  </div>
-   <div class="form-group">
-    <label>Address</label>
-    <textarea style="width:300px;height:100px;resize:vertical;" class="form-control" asp-for="@Model.Address"></textarea>
-    <div class="form-text">Address must between 10 and 250 characters</div>
-  </div>
-  <div class="card-buttons-group">
-      <button class="btn btn-primary" id="saveProfileButtonId">Submit</button>
-  </div>
-</form>
+<div class="row" style="display:block; margin:0 auto;width:50%">
+    <div class="col-sm-6">
+        <div class="card">
+            <div class="card-body">
+                <form method="post" id="profileFormId">
+                    <h2 class="card-title">Profile information</h2>
+                  <input asp-for="@Model.Id" hidden="hidden"/>
+                  <input asp-for="@Model.Email" hidden="hidden" />
+                  <div class="form-group mb-3">
+                    <label>Age</label>
+                    <input min="1" max="99" class="form-control" asp-for="@Model.Age">
+                     <span class="text-danger" asp-validation-for="@Model.Age"></span>
+                  </div>
+                  <div class="form-group mb-3">
+                      <label>Name</label>
+                      <input class="form-control" asp-for="@Model.UserName"/>
+                      <span class="text-danger" asp-validation-for="@Model.UserName"></span>
+                  </div>
+                  <div class="form-group mb=3 ">
+                    <label>Country</label>
+                    <select style="width:200px" asp-for="@Model.Country" class="form-control">
+                      <option selected="selected">None</option>
+                      <option>Russia</option>
+                      <option>USA</option>
+                      <option>Great Britain</option>
+                      <option>New Zealand</option>
+                      <option>Sweden</option>
+                    </select>
+                     <span class="text-danger" asp-validation-for="@Model.Country"></span>
+                  </div>
+                   <div class="form-group">
+                    <label>Address</label>
+                    <textarea style="height:100px;resize:none;" class="form-control" asp-for="@Model.Address"></textarea>
+                    <span class="text-danger" asp-validation-for="@Model.Address"></span>
+                    <div class="form-text">Address must between 10 and 250 characters</div>
+                  </div>
+                  <div class="card-buttons-group" style="margin-bottom:100px;">
+                      <button class="btn btn-primary" id="saveProfileButtonId">Submit</button>
+                  </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-6">
+        <div class="card">
+            <div class="card-body">
+                <form id="accountFormId">
+                    <h2 class="card-title">Account information</h2>
+                    <input asp-for=@Model.Email hidden="hidden"/>
+                    <div class="mb-3 form-group">
+                        <label class="form-label text-black-50">Email</label>
+                        <input type="text" class="form-control" placeholder="@Model.Email" readonly/>
+                    </div>
+                  <div class="card-buttons-group">
+                      <button class="btn btn-primary" asp-action="ChangePasswordDetail" id="saveAccountButtonId">Change password</button>
+                  </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 
 @section pageScripts{
     <script>

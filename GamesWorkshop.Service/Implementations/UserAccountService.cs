@@ -21,19 +21,21 @@ namespace GamesWorkshop.Service.Implementations
 			_mapper = mapper;
 		}
 
-		public async Task<IBaseResponse<UserAccountViewModel>> GetProfile(int UserId)
+		public async Task<IBaseResponse<UserAccountViewModel>> GetProfile(string userId, string userEmail, string userName)
 		{
 			try
 			{
-				var profile = await _userAccountRepository.GetAll().FirstOrDefaultAsync(p => p.UserId == UserId);
+				var profile = await _userAccountRepository.GetAll().FirstOrDefaultAsync(p => p.UserId.ToString() == userId);
 
 				if (profile == null)
 				{
 					UserAccount newProfile = new UserAccount()
 					{
-						UserId = UserId,
+						UserId = new Guid(userId),
 						Address = " ",
 						Country = " ",
+						Email = userEmail,
+						Name = userName,
 					};
 					await _userAccountRepository.Create(newProfile);
 
@@ -41,8 +43,8 @@ namespace GamesWorkshop.Service.Implementations
 
 					return new BaseResponse<UserAccountViewModel>()
 					{
-                        StatusCode = StatusCode.OK,
-                        Data = vm,
+						StatusCode = StatusCode.OK,
+						Data = vm,
 					};
 				}
 				var data = _mapper.Map<UserAccountViewModel>(profile);
@@ -67,7 +69,7 @@ namespace GamesWorkshop.Service.Implementations
 		{
 			try
 			{
-				var profile = await _userAccountRepository.GetAll().FirstOrDefaultAsync(p => p.UserAccountId == vm.Id);
+				var profile = await _userAccountRepository.GetAll().FirstOrDefaultAsync(p => p.UserId == vm.Id);
 
 				if (profile == null)
 				{
@@ -81,6 +83,8 @@ namespace GamesWorkshop.Service.Implementations
 				profile.Address = vm.Address;
 				profile.Country = vm.Country;
 				profile.Age = vm.Age;
+				profile.Email = vm.Email;
+				profile.Name = vm.UserName;
 				await _userAccountRepository.Update(profile);
 
 				return new BaseResponse<UserAccount>()
@@ -88,7 +92,7 @@ namespace GamesWorkshop.Service.Implementations
 					StatusCode = StatusCode.OK,
 					Data = profile,
 					Description = "Data updated"
-                };
+				};
 			}
 			catch (Exception ex)
 			{
@@ -99,5 +103,42 @@ namespace GamesWorkshop.Service.Implementations
 				};
 			}
 		}
+
+		public async Task<IBaseResponse<UserLoginInfoViewModel>> GetLogin(string userEmail)
+		{
+			try
+			{
+				var profile = await _userAccountRepository.GetAll().FirstOrDefaultAsync(p => p.Email == userEmail);
+				if (profile == null)
+				{
+					return new BaseResponse<UserLoginInfoViewModel>()
+					{
+						StatusCode = StatusCode.UserNotFound,
+						Description = "User not found"
+					};
+				}
+
+				return new BaseResponse<UserLoginInfoViewModel>()
+				{
+					Data = new UserLoginInfoViewModel()
+					{
+						Email = profile.Email,
+						NewPassword = "",
+						OldPassword = "",
+					},
+					StatusCode = StatusCode.OK,
+				};
+			}
+			catch (Exception ex)
+			{
+
+				return new BaseResponse<UserLoginInfoViewModel>()
+				{
+					Description = ex.Message,
+					StatusCode = StatusCode.InternalServerError
+				};
+			}
+		}
 	}
 }
+

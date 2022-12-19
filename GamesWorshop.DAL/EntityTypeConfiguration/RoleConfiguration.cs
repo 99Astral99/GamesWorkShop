@@ -8,20 +8,27 @@ namespace GamesWorshop.DAL.EntityTypeConfiguration
     {
         public void Configure(EntityTypeBuilder<Role> builder)
         {
-            builder.Property(r => r.RoleName).IsRequired();
-            builder.HasData(
-                new
-                {
-                    RoleId = 1,
-                    RoleName = "Customer"
-                });
 
-            builder.HasData(
-                new
-                {
-                    RoleId = 2,
-                    RoleName = "Admin"
-                });
+            //builder.HasMany(u => u.Users)
+            //    .WithOne(x => x.Role)
+            //    .HasForeignKey(x => x.RoleId);
+
+
+            //builder.HasData(
+            //    new Role()
+            //    {
+            //        Id = new Guid("EC274526-D90E-4ECD-BD85-CD84ED7BB0B1"),
+            //        Name = "User",
+            //        NormalizedName = "USER"
+            //    });
+
+            //builder.HasData(
+            //    new Role()
+            //    {
+            //        Id = new Guid("EC274526-D90E-4ECD-BD85-CD84EDF4E0C5"),
+            //        Name = "Admin",
+            //        NormalizedName = "ADMIN",
+            //    });
         }
     }
 }

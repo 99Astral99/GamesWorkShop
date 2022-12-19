@@ -1,9 +1,16 @@
-﻿namespace GamesWorkshop.Domain.Entities
+﻿using Microsoft.AspNetCore.Identity;
+
+namespace GamesWorkshop.Domain.Entities
 {
-    public class Role
+    public class Role : IdentityRole<Guid>
     {
-        public int RoleId { get; set; }
-        public string RoleName { get; set; }
-        public ICollection<User> Users { get; set; }
+        public Role(string roleName) : base(roleName)
+        {
+            Name = roleName;
+        }
+        public Role()
+        {
+
+        }
     }
 }

@@ -11,8 +11,11 @@ namespace GamesWorkshop.Domain.Enums
         //Product
         ProductNotFound = 11,
 
+        //User
+        UserNotFound = 22,
 
         OK = 200,
+        BadRequestError = 400,
         InternalServerError = 500
     }
 }

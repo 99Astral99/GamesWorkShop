@@ -1,13 +1,12 @@
-﻿namespace GamesWorkshop.Domain.Entities
+﻿using Microsoft.AspNetCore.Identity;
+
+namespace GamesWorkshop.Domain.Entities
 {
-    public class User
+    public class User : IdentityUser<Guid>
     {
-        public int Id { get; set; }
-        public string Name { get; set; }
-        public string Email { get; set; }
-        public string Password { get; set; }
-        public int RoleId { get; set; }
-        public Role Role { get; set; }
-        public UserAccount UserAccountProfile { get; set; }
+        public string? FirstName { get; set; }
+        public string? LastName { get; set; }
+
+        public UserAccount UserAccount { get; set; }
     }
 }

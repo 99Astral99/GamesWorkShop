@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿
+<!DOCTYPE html>
 <html lang="en">
 <head>
 	@*
@@ -32,7 +33,7 @@
 						<div class="header-top-left">
 							<ul>
 								<li><a asp-controller="Account" asp-action="Login"><span class="glyphicon glyphicon-user"> </span>Login</a></li>
-								<li><a asp-controller="Account" asp-action="Register"><span class="glyphicon glyphicon-lock"> </span>Create an Account</a></li>			
+									<li><a asp-controller="Account" asp-action="Registration"><span class="glyphicon glyphicon-lock"> </span>Create an Account</a></li>			
 							</ul>
 						</div>
 
@@ -50,6 +51,9 @@
 							<div class="header-top-left">
 								<ul>
 										<li><a asp-controller="UserAccount" asp-action="Detail"><span class="glyphicon glyphicon-user"> </span>Account</a></li>
+										@if(User.IsInRole("Admin")){
+											<li><a asp-controller="Admin" asp-action="Index"><span class="glyphicon glyphicon-user"> </span>Admin page</a></li>
+										}
 										<li><a asp-controller="Account" asp-action="Logout"><span class="glyphicon glyphicon-lock"> </span>Logout</a></li>
 								</ul>
 							</div>

@@ -1,14 +1,11 @@
 ﻿using AutoMapper;
 using GamesWorkshop.Domain.View.UserModels;
 using GamesWorkshop.Service.Interfaces;
-using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System.Security.Claims;
 
 namespace GamesWorkshop.Controllers
 {
-    [AutoValidateAntiforgeryToken]
     public class AccountController : Controller
     {
         private readonly IMapper _mapper;
@@ -20,49 +17,65 @@ namespace GamesWorkshop.Controllers
         }
 
         [HttpGet]
-        public IActionResult Register() => View();
+        public IActionResult Registration() => View();
         [HttpPost]
-        public async Task<IActionResult> Register(RegisterViewModel vm)
+        public async Task<IActionResult> Registration(RegisterViewModel vm)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                var response = await _accountService.Register(vm);
-                if (response.StatusCode == Domain.Enums.StatusCode.OK)
-                {
-                    await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme,
-                        new ClaimsPrincipal(response.Data));
-
-                    return RedirectToAction("Index", "Product");
-                }
-                ModelState.AddModelError("", response.Description);
+                return View(vm);
             }
-            return View(vm);
+            else
+            {
+                vm.Role = "Admin";
+                var result = await _accountService.RegistrationAsync(vm);
+
+                TempData["msg"] = result.Description;
+            }
+            return RedirectToAction(nameof(Registration));
         }
 
         [HttpGet]
         public IActionResult Login() => View();
-
         [HttpPost]
         public async Task<IActionResult> Login(LoginViewModel vm)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                var response = await _accountService.Login(vm);
-                if (response.StatusCode == Domain.Enums.StatusCode.OK)
-                {
-                    await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme,
-                        new ClaimsPrincipal(response.Data));
-                    return RedirectToAction(nameof(ProductController.Index), "Product");
-                }
-                ModelState.AddModelError("", response.Description);
+                return View(vm);
             }
-            return View(vm);
+
+            var result = await _accountService.LoginAsync(vm);
+            if (result.StatusCode == Domain.Enums.StatusCode.OK)
+            {
+                return RedirectToAction(nameof(ProductController.Index), "Product");
+            }
+            else
+            {
+                TempData["msg"] = result.Description;
+                return RedirectToAction(nameof(Login));
+            }
         }
 
+        //[HttpPost]
+        //public async Task<IActionResult> ChangePassword(UserLoginInfoViewModel vm)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        var response = await _accountService.ChangePassword(vm);
+        //        if (response.StatusCode == Domain.Enums.StatusCode.OK)
+        //        {
+        //            return Json(new { description = response.Description });
+        //        }
+        //    }
+        //    return StatusCode(StatusCodes.Status400BadRequest);
+        //}
+
+        [Authorize]
         public async Task<IActionResult> Logout()
         {
-            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-            return RedirectToAction(nameof(ProductController.Index), "Product");
+            await _accountService.LogoutAsync();
+            return RedirectToAction(nameof(Login));
         }
     }
 }

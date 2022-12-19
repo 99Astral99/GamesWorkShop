@@ -8,8 +8,7 @@ namespace GamesWorkshop.Domain.Mappings
     {
         public UserAccountProfile()
         {
-            CreateMap<UserAccount, UserAccountViewModel>()
-                .ForMember(u => u.Id, opt => opt.MapFrom(u => u.UserAccountId));
+            CreateMap<UserAccount, UserAccountViewModel>();
         }
     }
 }

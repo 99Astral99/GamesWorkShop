@@ -5,7 +5,7 @@ using GamesWorkshop.Service.Interfaces;
 using GamesWorshop.DAL;
 using GamesWorshop.DAL.Interfaces;
 using GamesWorshop.DAL.Repositories;
-using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -23,26 +23,45 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<AppDbContext>(options =>
 {
     var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
-    options.UseSqlServer(connectionString);
+    options.UseSqlServer(connectionString, m => m.MigrationsAssembly("GamesWorshop.DAL"));
 });
 
 
-builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-    .AddCookie(options =>
-    {
-        options.Cookie.Name = "ApplicationCookie";
-        options.LoginPath = new PathString("/Account/Login");
-        options.AccessDeniedPath = new PathString("/Account/Login");
-        options.LogoutPath = new PathString("/Account/Logout");
-    });
+builder.Services.AddIdentity<User, Role>(opt =>
+{
+    //opt.User.RequireUniqueEmail = true;
+    opt.User.AllowedUserNameCharacters =
+    "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ123456789";
 
-//builder.Services.AddAntiforgery(options =>
-//{
-//    options.Cookie.SameSite = SameSiteMode.None;
-//    options.FormFieldName = "AntiforgeryFieldname";
-//    options.HeaderName = "X-CSRF-TOKEN-HEADERNAME";
-//    options.SuppressXFrameOptionsHeader = false;
-//});
+
+    opt.Password.RequireDigit = false;
+    opt.Password.RequireNonAlphanumeric = false;
+    opt.Password.RequireUppercase = true;
+    opt.Password.RequiredLength = 8;
+
+    opt.Lockout = new LockoutOptions
+    {
+        AllowedForNewUsers = true,
+        DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5),
+        MaxFailedAccessAttempts = 5
+    };
+})
+                .AddEntityFrameworkStores<AppDbContext>()
+                .AddDefaultTokenProviders();
+
+
+builder.Services.ConfigureApplicationCookie(opt => opt.LoginPath = "/Account/Login");
+builder.Services.ConfigureApplicationCookie(opt => opt.LogoutPath = "/Account/Logout");
+
+
+//builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+//    .AddCookie(options =>
+//    {
+//        options.Cookie.Name = "ApplicationCookie";
+//        options.LoginPath = new PathString("/Account/Login");
+//        options.AccessDeniedPath = new PathString("/Account/Login");
+//        options.LogoutPath = new PathString("/Account/Logout");
+//    });
 
 
 builder.Services.AddScoped<IBaseRepository<Product>, ProductRepository>();

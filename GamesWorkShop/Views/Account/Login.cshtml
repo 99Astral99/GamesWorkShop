@@ -27,7 +27,7 @@
 			   <div class="col-md-6 login-left wow fadeInLeft" data-wow-delay="0.4s">
 			  	 <h2>NEW CUSTOMERS</h2>
 				 <p>By creating an account with our store, you will be able to move through the checkout process faster, store multiple shipping addresses, view and track your orders in your account and more.</p>
-				 <a class="acount-btn" asp-controller="Account" asp-action="Register">Create an Account</a>
+				 <a class="acount-btn" asp-controller="Account" asp-action="Registration">Create an Account</a>
 			   </div>
 			   <div class="col-md-6 login-right wow fadeInRight" data-wow-delay="0.4s">
 			  	<h3>REGISTERED CUSTOMERS</h3>
@@ -36,10 +36,12 @@
 					  <div>
 						<span>Email Address<label>*</label></span>
 						<input asp-for="Email" type="text"> 
+						<span class="text-danger" asp-validation-for="Email"></span>
 					  </div>
 					  <div>
 						<span>Password<label>*</label></span>
 						<input asp-for="Password" type="password"> 
+						<span class="text-danger" asp-validation-for="Password"></span>
 					  </div>
 					  <div>
 						  <span>Remember Me?</span>
