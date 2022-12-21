@@ -28,51 +28,6 @@ namespace GamesWorkshop.Service.Implementations
             _signInManager = signInManager;
         }
 
-        //public async Task<IBaseResponse<bool>> ChangePassword(UserLoginInfoViewModel vm)
-        //{
-        //    try
-        //    {
-        //        var profile = await _userRepository.GetAll().FirstOrDefaultAsync(p => p.Email == vm.Email);
-
-        //        if (profile == null)
-        //        {
-        //            return new BaseResponse<bool>()
-        //            {
-        //                StatusCode = StatusCode.UserNotFound,
-        //                Description = "User not found",
-        //                Data = false
-        //            };
-        //        }
-        //        if (!BCrypt.Net.BCrypt.Verify(vm.OldPassword, profile.Password))
-        //        {
-        //            return new BaseResponse<bool>
-        //            {
-        //                Description = "Invalid old password",
-        //                StatusCode = StatusCode.BadRequestError
-        //            };
-        //        }
-
-        //        profile.Password = BCrypt.Net.BCrypt.HashPassword(vm.NewPassword);
-        //        await _userRepository.Update(profile);
-
-        //        return new BaseResponse<bool>()
-        //        {
-        //            StatusCode = StatusCode.OK,
-        //            Data = true,
-        //            Description = "Password has changed"
-        //        };
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return new BaseResponse<bool>()
-        //        {
-        //            Description = ex.Message,
-        //            StatusCode = StatusCode.InternalServerError
-        //        };
-        //    }
-        //}
-
-        //новые функции
         public async Task<IBaseResponse<bool>> LoginAsync(LoginViewModel vm)
         {
             try

@@ -27,7 +27,7 @@ namespace GamesWorkshop.Controllers
             }
             else
             {
-                vm.Role = "Admin";
+                vm.Role = "User";
                 var result = await _accountService.RegistrationAsync(vm);
 
                 TempData["msg"] = result.Description;
@@ -56,20 +56,6 @@ namespace GamesWorkshop.Controllers
                 return RedirectToAction(nameof(Login));
             }
         }
-
-        //[HttpPost]
-        //public async Task<IActionResult> ChangePassword(UserLoginInfoViewModel vm)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        var response = await _accountService.ChangePassword(vm);
-        //        if (response.StatusCode == Domain.Enums.StatusCode.OK)
-        //        {
-        //            return Json(new { description = response.Description });
-        //        }
-        //    }
-        //    return StatusCode(StatusCodes.Status400BadRequest);
-        //}
 
         [Authorize]
         public async Task<IActionResult> Logout()

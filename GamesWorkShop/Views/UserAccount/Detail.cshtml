@@ -9,7 +9,7 @@
             <div class="card-body">
                 <form method="post" id="profileFormId">
                     <h2 class="card-title">Profile information</h2>
-                  <input asp-for="@Model.Id" hidden="hidden"/>
+                  <input asp-for="@Model.UserId" hidden="hidden"/>
                   <input asp-for="@Model.Email" hidden="hidden" />
                   <div class="form-group mb-3">
                     <label>Age</label>
@@ -17,9 +17,14 @@
                      <span class="text-danger" asp-validation-for="@Model.Age"></span>
                   </div>
                   <div class="form-group mb-3">
-                      <label>Name</label>
-                      <input class="form-control" asp-for="@Model.UserName"/>
-                      <span class="text-danger" asp-validation-for="@Model.UserName"></span>
+                      <label>First Name</label>
+                      <input class="form-control" asp-for="@Model.FirstName"/>
+                      <span class="text-danger" asp-validation-for="@Model.FirstName"></span>
+                  </div>
+                  <div class="form-group mb-3">
+                      <label>Last Name</label>
+                      <input class="form-control" asp-for="@Model.LastName"/>
+                      <span class="text-danger" asp-validation-for="@Model.LastName"></span>
                   </div>
                   <div class="form-group mb=3 ">
                     <label>Country</label>
