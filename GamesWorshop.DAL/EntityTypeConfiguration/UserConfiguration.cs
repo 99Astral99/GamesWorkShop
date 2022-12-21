@@ -12,11 +12,6 @@ namespace GamesWorshop.DAL.EntityTypeConfiguration
             builder.HasKey(x => x.Id);
             builder.HasIndex(e => e.Email).IsUnique();
 
-            //builder.HasOne(r => r.Role)
-            //    .WithMany(u => u.Users)
-            //    .HasForeignKey(r => r.RoleId).IsRequired()
-            //    .OnDelete(DeleteBehavior.NoAction);
-
             builder.HasOne(u => u.UserAccount)
                 .WithOne(u => u.User).
                 HasForeignKey<UserAccount>(u => u.UserId);
@@ -28,14 +23,11 @@ namespace GamesWorshop.DAL.EntityTypeConfiguration
                 Email = "customer@gmail.com",
                 NormalizedEmail = "CUSTOMER@GMAIL.COM",
                 UserName = "AmericanPsycho",
-                FirstName = "Patrick",
-                LastName = "Bateman",
                 NormalizedUserName = "PATRICK",
-                //RoleId = new Guid("EC274526-D90E-4ECD-BD85-CD84ED7BB0B1"),
                 SecurityStamp = Guid.NewGuid().ToString()
             };
             var password = new PasswordHasher<User>();
-            var hashed = password.HashPassword(user, "Patrick Bateman");
+            var hashed = password.HashPassword(user, "defaultpassword");
             user.PasswordHash = hashed;
             builder.HasData(user);
 
@@ -45,14 +37,11 @@ namespace GamesWorshop.DAL.EntityTypeConfiguration
                 Email = "admin@gmail.com",
                 NormalizedEmail = "ADMIN@GMAIL.COM",
                 UserName = "PaulAllen",
-                FirstName = "Paul",
-                LastName = "Allen",
                 NormalizedUserName = "PAUL",
-                //RoleId = new Guid("EC274526-D90E-4ECD-BD85-CD84EDF4E0C5"),
-                SecurityStamp = Guid.NewGuid().ToString()
+                SecurityStamp = Guid.NewGuid().ToString(),
             };
             var password2 = new PasswordHasher<User>();
-            var hashed2 = password2.HashPassword(user2, "Paul Allen");
+            var hashed2 = password2.HashPassword(user2, "defaultpassword");
             user2.PasswordHash = hashed2;
             builder.HasData(user2);
         }

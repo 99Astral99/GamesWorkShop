@@ -16,8 +16,9 @@ namespace GamesWorshop.DAL.EntityTypeConfiguration
                 UserId = new Guid("480A013F-9EB1-4890-B543-3FD416466804"),
                 Country = "USA",
                 Email = "customer@gmail.com",
-                Address = "I have no home",
-                Name = "Patrick",
+                Address = "American Gardens Building on W. 81st Street on the 11th floor.",
+                FirstName = "Patrick",
+                LastName = "Bateman",
                 Age = 27
             });
 
@@ -28,7 +29,8 @@ namespace GamesWorshop.DAL.EntityTypeConfiguration
                 Country = "Russia",
                 Email = "admin@gmail.com",
                 Address = "I have no home",
-                Name = "Paul",
+                FirstName = "Paul",
+                LastName = "Allen",
                 Age = 25
             });
         }
