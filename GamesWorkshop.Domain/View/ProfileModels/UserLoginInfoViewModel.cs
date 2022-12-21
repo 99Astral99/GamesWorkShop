@@ -4,10 +4,19 @@ namespace GamesWorkshop.Domain.View.ProfileModels
 {
     public class UserLoginInfoViewModel
     {
-        public string Email { get; set; }
-        public string OldPassword { get; set; }
-        [StringLength(255, MinimumLength = 10, ErrorMessage = "Password must between 10 and 255 characters")]
-        //[RegularExpression("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).{8,15}$")]
-        public string NewPassword { get; set; }
+        //public string Email { get; set; }
+        //public string OldPassword { get; set; }
+        //[StringLength(255, MinimumLength = 10, ErrorMessage = "Password must between 8 and 255 characters")]
+        ////[RegularExpression("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).{8,15}$")]
+        //public string NewPassword { get; set; }
+        [Required]
+        public string? OldPassword { get; set; }
+
+        [Required]
+        //[RegularExpression("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*[#$^+=!*()@%&]).{6,}$", ErrorMessage = "Minimum length 6 and must contain  1 Uppercase,1 lowercase, 1 special character and 1 digit")]
+        public string? NewPassword { get; set; }
+        [Required]
+        [Compare("NewPassword")]
+        public string? PasswordConfirm { get; set; }
     }
 }

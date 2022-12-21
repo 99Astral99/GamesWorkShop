@@ -96,7 +96,7 @@
 							<div class="mask">
 								<a asp-controller="Product" asp-action="GetProduct" asp-route-id = "@product.Id">Quick View</a>
 							</div>
-							<a class="product_name" asp-controller="Product" asp-action="GetProduct">@product.Name</a>
+							<a class="product_name" asp-controller="Product" asp-action="GetProduct" asp-route-Id="@product.Id">@product.Name</a>
 							<p><a class="item_add" href="#"><i></i> <span class="item_price">@product.Price$</span></a></p>
 							<p><a class="item_add" asp-controller="Cart" asp-action="Add" asp-route-id="@product.Id"><i></i> <span class="item_price">Add to cart</span></a></p>
 					</div>

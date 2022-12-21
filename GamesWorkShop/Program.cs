@@ -80,6 +80,7 @@ if (!app.Environment.IsDevelopment())
     app.UseExceptionHandler("/Home/Error");
     app.UseHsts();
 }
+//SeedData.Initialize(app.Services);
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
