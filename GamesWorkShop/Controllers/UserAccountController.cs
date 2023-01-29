@@ -23,7 +23,6 @@ namespace GamesWorkshop.Controllers
         {
             var userId = _userManager.GetUserId(HttpContext.User);
             var userEmail = User.FindFirstValue(ClaimTypes.Email);
-            //var userName = _userManager.GetUserName(HttpContext.User);
             var response = await _userAccountProfleService.GetProfile(userId, userEmail);
             if (response.StatusCode == Domain.Enums.StatusCode.OK)
             {
@@ -57,6 +56,7 @@ namespace GamesWorkshop.Controllers
                 return View(response.Data);
             return View();
         }
+
         [Authorize]
         [HttpPost]
         public async Task<IActionResult> ChangePasswordDetail(UserLoginInfoViewModel vm)

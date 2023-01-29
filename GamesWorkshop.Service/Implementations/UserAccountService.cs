@@ -30,26 +30,6 @@ namespace GamesWorkshop.Service.Implementations
 			try
 			{
 				var profile = await _userAccountRepository.GetAll().FirstOrDefaultAsync(p => p.UserId.ToString() == userId);
-
-				if (profile == null)
-				{
-					UserAccount newProfile = new UserAccount()
-					{
-						UserId = new Guid(userId),
-						Address = " ",
-						Country = " ",
-						Email = userEmail,
-					};
-					await _userAccountRepository.Create(newProfile);
-
-					var vm = _mapper.Map<UserAccountViewModel>(newProfile);
-
-					return new BaseResponse<UserAccountViewModel>()
-					{
-						StatusCode = StatusCode.OK,
-						Data = vm,
-					};
-				}
 				var data = _mapper.Map<UserAccountViewModel>(profile);
 
 				return new BaseResponse<UserAccountViewModel>()

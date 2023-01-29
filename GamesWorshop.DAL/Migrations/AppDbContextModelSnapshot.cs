@@ -171,14 +171,14 @@ namespace GamesWorshop.DAL.Migrations
                         new
                         {
                             Id = new Guid("ec274526-d90e-4ecd-bd85-cd84ed7bb0b1"),
-                            ConcurrencyStamp = "79106d34-fdad-4812-af59-403307ccdaea",
+                            ConcurrencyStamp = "cad698fd-a705-41ce-b67e-060dcef3b11e",
                             Name = "User",
                             NormalizedName = "USER"
                         },
                         new
                         {
                             Id = new Guid("fb53fcfe-3b74-4f77-8b9e-e543a38e1bc6"),
-                            ConcurrencyStamp = "ff13700f-1234-414a-8193-ffbb667e1565",
+                            ConcurrencyStamp = "2509c7ee-72c9-4930-96a1-5692ba0f3e3b",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         });
@@ -258,15 +258,15 @@ namespace GamesWorshop.DAL.Migrations
                         {
                             Id = new Guid("480a013f-9eb1-4890-b543-3fd416466804"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "c4c1a45d-89e4-47a0-b831-877badc4b339",
+                            ConcurrencyStamp = "454dd63d-a520-4bb4-b161-e6b2ea219c0f",
                             Email = "customer@gmail.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "CUSTOMER@GMAIL.COM",
                             NormalizedUserName = "PATRICK",
-                            PasswordHash = "AQAAAAEAACcQAAAAEOX7K/bSalfGnfuIixnOWvwkznIysTDGyzGHP03bqgzTNShty7uSyem07mRC13XgsA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEAS/KwdxVKHDiLj0Wg1i106MOwuVZUZn+H6NzE9RcPxb/i8u/3SRUR69ympDDYW1bw==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "8fa97041-a7d9-4d16-869a-9c41c9b4b0dd",
+                            SecurityStamp = "114e452a-3eb9-423c-923a-81047b0d9cc3",
                             TwoFactorEnabled = false,
                             UserName = "AmericanPsycho"
                         },
@@ -274,15 +274,15 @@ namespace GamesWorshop.DAL.Migrations
                         {
                             Id = new Guid("ec274526-d90e-4ecd-bd85-cd84ed7ae0e9"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "fdb26c0b-44e9-430a-85d4-ce6cdf940a85",
+                            ConcurrencyStamp = "5158cbe5-e6f6-4bb1-9733-ad430540f33a",
                             Email = "admin@gmail.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@GMAIL.COM",
                             NormalizedUserName = "PAUL",
-                            PasswordHash = "AQAAAAEAACcQAAAAEGJilfxE+68gkckIfCL8RbqvIvoDgUdw+TrwMWj7BRSOl24Eug4M15oHAZ3qfuIcaA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEL4sSSWRDuugsexhtwG/tgHwENG51hv4d13+XIAsg3lEoxhO8UTXvkzlFTYv92zc9w==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "4254d62f-0a63-482d-aba7-380f1a85bf97",
+                            SecurityStamp = "5bdc562b-3d1b-4a50-b3e5-8037d982c671",
                             TwoFactorEnabled = false,
                             UserName = "PaulAllen"
                         });
@@ -295,7 +295,6 @@ namespace GamesWorshop.DAL.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Address")
-                        .IsRequired()
                         .HasMaxLength(300)
                         .HasColumnType("nvarchar(300)");
 
@@ -303,7 +302,6 @@ namespace GamesWorshop.DAL.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Country")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Email")

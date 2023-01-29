@@ -203,8 +203,8 @@ namespace GamesWorshop.DAL.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Country = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Address = table.Column<string>(type: "nvarchar(300)", maxLength: 300, nullable: false),
+                    Country = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Address = table.Column<string>(type: "nvarchar(300)", maxLength: 300, nullable: true),
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     FirstName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     LastName = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -249,8 +249,8 @@ namespace GamesWorshop.DAL.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { new Guid("ec274526-d90e-4ecd-bd85-cd84ed7bb0b1"), "79106d34-fdad-4812-af59-403307ccdaea", "User", "USER" },
-                    { new Guid("fb53fcfe-3b74-4f77-8b9e-e543a38e1bc6"), "ff13700f-1234-414a-8193-ffbb667e1565", "Admin", "ADMIN" }
+                    { new Guid("ec274526-d90e-4ecd-bd85-cd84ed7bb0b1"), "cad698fd-a705-41ce-b67e-060dcef3b11e", "User", "USER" },
+                    { new Guid("fb53fcfe-3b74-4f77-8b9e-e543a38e1bc6"), "2509c7ee-72c9-4930-96a1-5692ba0f3e3b", "Admin", "ADMIN" }
                 });
 
             migrationBuilder.InsertData(
@@ -258,8 +258,8 @@ namespace GamesWorshop.DAL.Migrations
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
                 values: new object[,]
                 {
-                    { new Guid("480a013f-9eb1-4890-b543-3fd416466804"), 0, "c4c1a45d-89e4-47a0-b831-877badc4b339", "customer@gmail.com", false, false, null, "CUSTOMER@GMAIL.COM", "PATRICK", "AQAAAAEAACcQAAAAEOX7K/bSalfGnfuIixnOWvwkznIysTDGyzGHP03bqgzTNShty7uSyem07mRC13XgsA==", null, false, "8fa97041-a7d9-4d16-869a-9c41c9b4b0dd", false, "AmericanPsycho" },
-                    { new Guid("ec274526-d90e-4ecd-bd85-cd84ed7ae0e9"), 0, "fdb26c0b-44e9-430a-85d4-ce6cdf940a85", "admin@gmail.com", false, false, null, "ADMIN@GMAIL.COM", "PAUL", "AQAAAAEAACcQAAAAEGJilfxE+68gkckIfCL8RbqvIvoDgUdw+TrwMWj7BRSOl24Eug4M15oHAZ3qfuIcaA==", null, false, "4254d62f-0a63-482d-aba7-380f1a85bf97", false, "PaulAllen" }
+                    { new Guid("480a013f-9eb1-4890-b543-3fd416466804"), 0, "454dd63d-a520-4bb4-b161-e6b2ea219c0f", "customer@gmail.com", false, false, null, "CUSTOMER@GMAIL.COM", "PATRICK", "AQAAAAEAACcQAAAAEAS/KwdxVKHDiLj0Wg1i106MOwuVZUZn+H6NzE9RcPxb/i8u/3SRUR69ympDDYW1bw==", null, false, "114e452a-3eb9-423c-923a-81047b0d9cc3", false, "AmericanPsycho" },
+                    { new Guid("ec274526-d90e-4ecd-bd85-cd84ed7ae0e9"), 0, "5158cbe5-e6f6-4bb1-9733-ad430540f33a", "admin@gmail.com", false, false, null, "ADMIN@GMAIL.COM", "PAUL", "AQAAAAEAACcQAAAAEL4sSSWRDuugsexhtwG/tgHwENG51hv4d13+XIAsg3lEoxhO8UTXvkzlFTYv92zc9w==", null, false, "5bdc562b-3d1b-4a50-b3e5-8037d982c671", false, "PaulAllen" }
                 });
 
             migrationBuilder.InsertData(

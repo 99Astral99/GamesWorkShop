@@ -31,9 +31,6 @@ namespace GamesWorkshop.Controllers
 
             TempData["msg"] = result.Description;
             return Json(new { description = result.Description });
-
-
-            //return RedirectToAction(nameof(Registration));
         }
 
         [HttpGet]
