@@ -11,12 +11,12 @@ This is my new pet project, based on .NET 6 (MVC). This will be a store selling 
 ## What does it do?
 You will be able to login, make a purchase of the product. 
 
-## Required before downloading
+## Required before starting the project.
 - Write a command in the PM "-update-database"
 - Execute a SQL query called INSERT_ProductsScript.sql to the created database
 - Done
 
-## The project is under development.
+## The project is under development
 
 What you can already do now:
 ### Products
