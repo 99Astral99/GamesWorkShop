@@ -11,20 +11,16 @@ namespace GamesWorshop.DAL.Repositories
             _dbContext = dbContext;
         }
 
-        public async Task<bool> Create(UserAccount entity)
+        public async Task Create(UserAccount entity)
         {
             await _dbContext.Profiles.AddAsync(entity);
             await _dbContext.SaveChangesAsync();
-
-            return true;
         }
 
-        public async Task<bool> Delete(UserAccount entity)
+        public async Task Delete(UserAccount entity)
         {
             _dbContext.Profiles.Remove(entity);
             await _dbContext.SaveChangesAsync();
-
-            return true;
         }
 
         public IQueryable<UserAccount> GetAll()

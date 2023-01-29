@@ -16,6 +16,7 @@ builder.Services.AddAutoMapper(config =>
     config.AddProfile(new ProductProfile());
     config.AddProfile(new UserProfile());
     config.AddProfile(new UserAccountProfile());
+    config.AddProfile(new OrderProfile());
 });
 
 
@@ -67,6 +68,12 @@ builder.Services.ConfigureApplicationCookie(opt => opt.LogoutPath = "/Account/Lo
 builder.Services.AddScoped<IBaseRepository<Product>, ProductRepository>();
 builder.Services.AddScoped<IProductService, ProductService>();
 
+builder.Services.AddScoped<IBaseRepository<Cart>, CartRepostiroy>();
+builder.Services.AddScoped<ICartService, CartService>();
+
+builder.Services.AddScoped<IBaseRepository<Order>, OrderRepository>();
+builder.Services.AddScoped<IOrderService, OrderService>();
+
 builder.Services.AddScoped<IBaseRepository<User>, UserRepository>();
 builder.Services.AddScoped<IAccountService, AccountService>();
 
@@ -80,7 +87,6 @@ if (!app.Environment.IsDevelopment())
     app.UseExceptionHandler("/Home/Error");
     app.UseHsts();
 }
-//SeedData.Initialize(app.Services);
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();

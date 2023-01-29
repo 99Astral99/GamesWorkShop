@@ -1,9 +1,9 @@
 
-body{
-	padding:0;
-	margin:0;
+body {
+	padding: 0;
+	margin: 0;
 	font-family: 'Lato-Regular';
-	background:#fff;
+	background:  #fafafa;
 }
 body a{
     transition:0.5s all;
@@ -764,10 +764,10 @@ ul.f_nav li a{
 	}
 /*-- footer-ends-here --*/
 /*-- products-page-starts-here --*/
-.products{
-	width:20%;
-	margin-right:2%;
-	float:left;
+.products {
+	width: 20% !important;
+	margin-right: 2% !important;
+	float: left !important;
 }
 .product-listy{
 	background:#91b900;
@@ -3066,4 +3066,7 @@ p.right {
 		font-size: 1.6rem !important;
 		font-family: Georgia, serif;
 	}
+
+	/*cart*/
+	
 }

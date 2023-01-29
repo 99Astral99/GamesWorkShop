@@ -12,20 +12,20 @@ namespace GamesWorkshop.Service.Implementations
 {
     public class AccountService : IAccountService
     {
-        private readonly IBaseRepository<User> _userRepository;
         private readonly SignInManager<User> _signInManager;
         private readonly UserManager<User> _userManager;
         private readonly RoleManager<Role> _roleManager;
+        private readonly IBaseRepository<Cart> _cartRepository;
         private readonly IMapper _mapper;
 
-        public AccountService(IBaseRepository<User> userRepository, IMapper mapper,
-            UserManager<User> userManager, RoleManager<Role> roleManager, SignInManager<User> signInManager)
+        public AccountService(IMapper mapper,
+            UserManager<User> userManager, RoleManager<Role> roleManager, SignInManager<User> signInManager, IBaseRepository<Cart> cartRepository)
         {
-            _userRepository = userRepository;
             _mapper = mapper;
             _userManager = userManager;
             _roleManager = roleManager;
             _signInManager = signInManager;
+            _cartRepository = cartRepository;
         }
 
         public async Task<IBaseResponse<bool>> LoginAsync(LoginViewModel vm)
@@ -120,6 +120,7 @@ namespace GamesWorkshop.Service.Implementations
                 user.PhoneNumberConfirmed = true;
 
                 var data = await _userManager.CreateAsync(user, vm.Password);
+
                 if (!data.Succeeded)
                 {
                     return new BaseResponse<bool>()
@@ -138,7 +139,11 @@ namespace GamesWorkshop.Service.Implementations
                     await _userManager.AddToRoleAsync(user, vm.Role);
                 }
 
-                return new BaseResponse<bool>
+
+				var cart = new Cart() { UserId = user.Id };
+				await _cartRepository.Create(cart);
+
+				return new BaseResponse<bool>
                 {
                     StatusCode = StatusCode.OK,
                     Description = "User has registered successfully"

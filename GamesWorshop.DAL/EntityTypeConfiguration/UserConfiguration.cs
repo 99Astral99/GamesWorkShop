@@ -14,8 +14,13 @@ namespace GamesWorshop.DAL.EntityTypeConfiguration
 
             builder.HasOne(u => u.UserAccount)
                 .WithOne(u => u.User).
-                HasForeignKey<UserAccount>(u => u.UserId);
+                HasForeignKey<UserAccount>(u => u.UserId)
+               .OnDelete(DeleteBehavior.Cascade); 
 
+            builder.HasOne(u => u.Cart)
+                .WithOne(x => x.User)
+                .HasPrincipalKey<User>(x=>x.Id)
+                .OnDelete(DeleteBehavior.Cascade);
 
             var user = new User()
             {
@@ -24,7 +29,7 @@ namespace GamesWorshop.DAL.EntityTypeConfiguration
                 NormalizedEmail = "CUSTOMER@GMAIL.COM",
                 UserName = "AmericanPsycho",
                 NormalizedUserName = "PATRICK",
-                SecurityStamp = Guid.NewGuid().ToString()
+                SecurityStamp = Guid.NewGuid().ToString(),
             };
             var password = new PasswordHasher<User>();
             var hashed = password.HashPassword(user, "defaultpassword");

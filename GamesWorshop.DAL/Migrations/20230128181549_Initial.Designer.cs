@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GamesWorshop.DAL.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20221221160944_Initial")]
+    [Migration("20230128181549_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -23,6 +23,65 @@ namespace GamesWorshop.DAL.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
+
+            modelBuilder.Entity("GamesWorkshop.Domain.Entities.Cart", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId")
+                        .IsUnique();
+
+                    b.ToTable("Carts", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            UserId = new Guid("480a013f-9eb1-4890-b543-3fd416466804")
+                        },
+                        new
+                        {
+                            Id = 2,
+                            UserId = new Guid("ec274526-d90e-4ecd-bd85-cd84ed7ae0e9")
+                        });
+                });
+
+            modelBuilder.Entity("GamesWorkshop.Domain.Entities.Order", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int?>("CartId")
+                        .IsRequired()
+                        .HasColumnType("int");
+
+                    b.Property<int>("Count")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("DateCreated")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CartId");
+
+                    b.ToTable("Orders", (string)null);
+                });
 
             modelBuilder.Entity("GamesWorkshop.Domain.Entities.Product", b =>
                 {
@@ -114,14 +173,14 @@ namespace GamesWorshop.DAL.Migrations
                         new
                         {
                             Id = new Guid("ec274526-d90e-4ecd-bd85-cd84ed7bb0b1"),
-                            ConcurrencyStamp = "a3a2cbc6-be11-4858-8100-8390958a36e5",
+                            ConcurrencyStamp = "79106d34-fdad-4812-af59-403307ccdaea",
                             Name = "User",
                             NormalizedName = "USER"
                         },
                         new
                         {
                             Id = new Guid("fb53fcfe-3b74-4f77-8b9e-e543a38e1bc6"),
-                            ConcurrencyStamp = "5d348cc8-fbf1-4741-925f-60f98b78a159",
+                            ConcurrencyStamp = "ff13700f-1234-414a-8193-ffbb667e1565",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         });
@@ -201,15 +260,15 @@ namespace GamesWorshop.DAL.Migrations
                         {
                             Id = new Guid("480a013f-9eb1-4890-b543-3fd416466804"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "9c670739-a0e2-4215-951e-4b23371dbc71",
+                            ConcurrencyStamp = "c4c1a45d-89e4-47a0-b831-877badc4b339",
                             Email = "customer@gmail.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "CUSTOMER@GMAIL.COM",
                             NormalizedUserName = "PATRICK",
-                            PasswordHash = "AQAAAAEAACcQAAAAEEXvC+027i3czidZFxY2IkbaWM9z97yKuBZSxeZKaG/dCgWjyNKZ4N22nB2BIgWXVA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEOX7K/bSalfGnfuIixnOWvwkznIysTDGyzGHP03bqgzTNShty7uSyem07mRC13XgsA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "823409e6-e288-4ffb-926a-5ad25a8d5a8f",
+                            SecurityStamp = "8fa97041-a7d9-4d16-869a-9c41c9b4b0dd",
                             TwoFactorEnabled = false,
                             UserName = "AmericanPsycho"
                         },
@@ -217,15 +276,15 @@ namespace GamesWorshop.DAL.Migrations
                         {
                             Id = new Guid("ec274526-d90e-4ecd-bd85-cd84ed7ae0e9"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "36dfdcb9-1956-4fff-b2d1-92d6e4f25c1f",
+                            ConcurrencyStamp = "fdb26c0b-44e9-430a-85d4-ce6cdf940a85",
                             Email = "admin@gmail.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@GMAIL.COM",
                             NormalizedUserName = "PAUL",
-                            PasswordHash = "AQAAAAEAACcQAAAAEA7VRNofzNXPjl4sEpLBD3kf+lZXVOpMR0uqgLWFA+JcG5jI6ZRIuWPQ9vQjeERDKA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEGJilfxE+68gkckIfCL8RbqvIvoDgUdw+TrwMWj7BRSOl24Eug4M15oHAZ3qfuIcaA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "763219e6-acdb-4404-a7cb-2ec6061a899c",
+                            SecurityStamp = "4254d62f-0a63-482d-aba7-380f1a85bf97",
                             TwoFactorEnabled = false,
                             UserName = "PaulAllen"
                         });
@@ -409,6 +468,28 @@ namespace GamesWorshop.DAL.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("GamesWorkshop.Domain.Entities.Cart", b =>
+                {
+                    b.HasOne("GamesWorkshop.Domain.Entities.User", "User")
+                        .WithOne("Cart")
+                        .HasForeignKey("GamesWorkshop.Domain.Entities.Cart", "UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("GamesWorkshop.Domain.Entities.Order", b =>
+                {
+                    b.HasOne("GamesWorkshop.Domain.Entities.Cart", "Cart")
+                        .WithMany("Orders")
+                        .HasForeignKey("CartId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Cart");
+                });
+
             modelBuilder.Entity("GamesWorkshop.Domain.Entities.UserAccount", b =>
                 {
                     b.HasOne("GamesWorkshop.Domain.Entities.User", "User")
@@ -471,8 +552,16 @@ namespace GamesWorshop.DAL.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("GamesWorkshop.Domain.Entities.Cart", b =>
+                {
+                    b.Navigation("Orders");
+                });
+
             modelBuilder.Entity("GamesWorkshop.Domain.Entities.User", b =>
                 {
+                    b.Navigation("Cart")
+                        .IsRequired();
+
                     b.Navigation("UserAccount")
                         .IsRequired();
                 });

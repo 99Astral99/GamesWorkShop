@@ -28,8 +28,9 @@
 				<div class="reg">
 					 <p>Welcome, please enter the following details to continue.</p>
 					 <p>If you have previously registered with us, <a asp-controller="Account" asp-action="Login">click here</a></p>
-					 <form asp-controller="Account" asp-action="Registration" >
+					 <form method="post" id="registrationFormId">
 						 <ul>
+							 @*asp-controller="Account" asp-action="Registration"*@ 
 							 <li class="text-info">UserName: </li>
 							 <li><input asp-for="UserName" type="text" value=""></li>
 							 <span class="text-danger" asp-validation-for="UserName"></span>
@@ -49,7 +50,7 @@
 							 <li><input asp-for="ConfirmPassword" type="password" value=""></li>
 							 <span class="text-danger" asp-validation-for="ConfirmPassword"></span>
 						 </ul>					
-						 <input type="submit" value="REGISTER NOW">
+						 <input type="submit" id="inputRegistrationId" value="REGISTER NOW">
 						 <p class="click">By clicking this button, you are agree to my  <a href="#">Policy Terms and Conditions.</a></p> 
 					 </form>
 				 </div>
@@ -64,5 +65,33 @@
 		</div>
 	</div>
 </div>
-<!-- registration-form -->
 
+@section pageScripts{
+	<script>
+		$('#inputRegistrationId').on('click', function (e) {
+			e.preventDefault();
+			$.ajax({
+				url: '@Url.Action("Registration", "Account")',
+				type: 'POST',
+				data: $('#registrationFormId').serialize(),
+
+				success: function (response) {
+					Swal.fire({
+						title: 'Information',
+						text: response.description,
+						icon: 'success',
+						confirmButtonText: 'Ok'
+					})
+				},
+				error: function (data) {
+					Swal.fire({
+						title: 'Information',
+						text: "Validation error",
+						icon: 'error',
+						confirmButtonText: 'Ok'
+					})
+				}
+			})
+		})
+	</script>
+}

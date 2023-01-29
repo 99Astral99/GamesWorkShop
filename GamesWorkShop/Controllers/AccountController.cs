@@ -25,14 +25,15 @@ namespace GamesWorkshop.Controllers
             {
                 return View(vm);
             }
-            else
-            {
-                vm.Role = "User";
-                var result = await _accountService.RegistrationAsync(vm);
 
-                TempData["msg"] = result.Description;
-            }
-            return RedirectToAction(nameof(Registration));
+            vm.Role = "User";
+            var result = await _accountService.RegistrationAsync(vm);
+
+            TempData["msg"] = result.Description;
+            return Json(new { description = result.Description });
+
+
+            //return RedirectToAction(nameof(Registration));
         }
 
         [HttpGet]

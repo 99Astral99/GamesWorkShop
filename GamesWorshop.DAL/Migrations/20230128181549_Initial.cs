@@ -180,6 +180,25 @@ namespace GamesWorshop.DAL.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Carts",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Carts", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Carts_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Profiles",
                 columns: table => new
                 {
@@ -203,13 +222,35 @@ namespace GamesWorshop.DAL.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "Orders",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ProductId = table.Column<int>(type: "int", nullable: false),
+                    Count = table.Column<int>(type: "int", nullable: false),
+                    DateCreated = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    CartId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Orders", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Orders_Carts_CartId",
+                        column: x => x.CartId,
+                        principalTable: "Carts",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { new Guid("ec274526-d90e-4ecd-bd85-cd84ed7bb0b1"), "a3a2cbc6-be11-4858-8100-8390958a36e5", "User", "USER" },
-                    { new Guid("fb53fcfe-3b74-4f77-8b9e-e543a38e1bc6"), "5d348cc8-fbf1-4741-925f-60f98b78a159", "Admin", "ADMIN" }
+                    { new Guid("ec274526-d90e-4ecd-bd85-cd84ed7bb0b1"), "79106d34-fdad-4812-af59-403307ccdaea", "User", "USER" },
+                    { new Guid("fb53fcfe-3b74-4f77-8b9e-e543a38e1bc6"), "ff13700f-1234-414a-8193-ffbb667e1565", "Admin", "ADMIN" }
                 });
 
             migrationBuilder.InsertData(
@@ -217,8 +258,8 @@ namespace GamesWorshop.DAL.Migrations
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
                 values: new object[,]
                 {
-                    { new Guid("480a013f-9eb1-4890-b543-3fd416466804"), 0, "9c670739-a0e2-4215-951e-4b23371dbc71", "customer@gmail.com", false, false, null, "CUSTOMER@GMAIL.COM", "PATRICK", "AQAAAAEAACcQAAAAEEXvC+027i3czidZFxY2IkbaWM9z97yKuBZSxeZKaG/dCgWjyNKZ4N22nB2BIgWXVA==", null, false, "823409e6-e288-4ffb-926a-5ad25a8d5a8f", false, "AmericanPsycho" },
-                    { new Guid("ec274526-d90e-4ecd-bd85-cd84ed7ae0e9"), 0, "36dfdcb9-1956-4fff-b2d1-92d6e4f25c1f", "admin@gmail.com", false, false, null, "ADMIN@GMAIL.COM", "PAUL", "AQAAAAEAACcQAAAAEA7VRNofzNXPjl4sEpLBD3kf+lZXVOpMR0uqgLWFA+JcG5jI6ZRIuWPQ9vQjeERDKA==", null, false, "763219e6-acdb-4404-a7cb-2ec6061a899c", false, "PaulAllen" }
+                    { new Guid("480a013f-9eb1-4890-b543-3fd416466804"), 0, "c4c1a45d-89e4-47a0-b831-877badc4b339", "customer@gmail.com", false, false, null, "CUSTOMER@GMAIL.COM", "PATRICK", "AQAAAAEAACcQAAAAEOX7K/bSalfGnfuIixnOWvwkznIysTDGyzGHP03bqgzTNShty7uSyem07mRC13XgsA==", null, false, "8fa97041-a7d9-4d16-869a-9c41c9b4b0dd", false, "AmericanPsycho" },
+                    { new Guid("ec274526-d90e-4ecd-bd85-cd84ed7ae0e9"), 0, "fdb26c0b-44e9-430a-85d4-ce6cdf940a85", "admin@gmail.com", false, false, null, "ADMIN@GMAIL.COM", "PAUL", "AQAAAAEAACcQAAAAEGJilfxE+68gkckIfCL8RbqvIvoDgUdw+TrwMWj7BRSOl24Eug4M15oHAZ3qfuIcaA==", null, false, "4254d62f-0a63-482d-aba7-380f1a85bf97", false, "PaulAllen" }
                 });
 
             migrationBuilder.InsertData(
@@ -228,6 +269,15 @@ namespace GamesWorshop.DAL.Migrations
                 {
                     { new Guid("ec274526-d90e-4ecd-bd85-cd84ed7bb0b1"), new Guid("480a013f-9eb1-4890-b543-3fd416466804") },
                     { new Guid("fb53fcfe-3b74-4f77-8b9e-e543a38e1bc6"), new Guid("ec274526-d90e-4ecd-bd85-cd84ed7ae0e9") }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Carts",
+                columns: new[] { "Id", "UserId" },
+                values: new object[,]
+                {
+                    { 1, new Guid("480a013f-9eb1-4890-b543-3fd416466804") },
+                    { 2, new Guid("ec274526-d90e-4ecd-bd85-cd84ed7ae0e9") }
                 });
 
             migrationBuilder.InsertData(
@@ -286,6 +336,17 @@ namespace GamesWorshop.DAL.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Carts_UserId",
+                table: "Carts",
+                column: "UserId",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Orders_CartId",
+                table: "Orders",
+                column: "CartId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Products_CreatedDate",
                 table: "Products",
                 column: "CreatedDate");
@@ -320,6 +381,9 @@ namespace GamesWorshop.DAL.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
+                name: "Orders");
+
+            migrationBuilder.DropTable(
                 name: "Products");
 
             migrationBuilder.DropTable(
@@ -327,6 +391,9 @@ namespace GamesWorshop.DAL.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
+
+            migrationBuilder.DropTable(
+                name: "Carts");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");

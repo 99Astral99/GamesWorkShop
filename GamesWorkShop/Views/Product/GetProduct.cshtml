@@ -98,20 +98,29 @@
 							<p>&#8226 @f</p>
 						}
 					</div>
+					<form method="post" id="AddToCartFormId">
+						<input hidden asp-for="@Model.Id"/>
 					<div class="span span1">
 						<p class="left">Quantity</p>
-						<p class="right"><span class="selection-box">
-										<select asp-for="@Model.Amount" class="domains valid" name="domains">
-										   <option>1</option>
-										   <option>2</option>
-										   <option>3</option>
-										   <option>4</option>
-										   <option>5</option>
-									   </select></span></p>
+						<p class="right">
+							<span class="selection-box">
+								<select class="domains valid" name="count">
+									<option selected="selected" value="1">1</option>
+									<option value="2" >2</option>
+									<option value="3">3</option>
+									<option value="4">4</option>
+									<option value="5">5</option>
+								</select>
+							</span>
+						</p>
+
+						<div class="card-buttons-group purchase">
+							<button class="btn btn-primary item_add" type="submit" id="AddToCartBtnId">Add to cart</button>
+						</div>
 						<div class="clearfix"></div>
 					</div>
+					</form>
 					<div class="purchase">
-						<a asp-controller="Cart" asp-action="Add" asp-route-id="@Model.Id">Add to cart</a>
 						<div class="social-icons">
 							<ul>
 								<li><a class="facebook1" href="#"></a></li>
@@ -122,10 +131,8 @@
 						<div class="clearfix"></div>
 					</div>
 				<script src="~/js/imagezoom.js"></script>
-					<!-- FlexSlider -->
 					<script defer src="~/js/jquery.flexslider.js"></script>
 					<script>
-						// Can also be used with $(document).ready()
 						$(window).load(function() {
 						  $('.flexslider').flexslider({
 							animation: "slide",
@@ -136,7 +143,7 @@
 				</div>
 				<div class="clearfix"></div>
 					<div class="reviews-tabs">
-	  <!-- Main component for a primary marketing message or call to action -->
+
 	  <ul class="nav nav-tabs responsive hidden-xs hidden-sm" id="myTab">
 		<li class="test-class active"><a class="deco-none misc-class" href="#how-to"> Description</a></li>
 		<li class="test-class"><a href="#features">Specifications</a></li>
@@ -150,11 +157,7 @@
 			<p class="tab-text">@d</p><br> 
 		}   
 		</div>
-@*		<div class="tab-pane" id="features">
-		  <p class="tab-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum nibh urna, euismod ut ornare non, volutpat vel tortor. Integer laoreet placerat suscipit. Sed sodales scelerisque commodo. Nam porta cursus lectus. Proin nunc erat, gravida a facilisis quis, ornare id lectus. Proin consectetur nibh quis urna gravida mollis.This tab has icon in consectetur adipiscing eliconse consectetur adipiscing elit. Vestibulum nibh urna, ctetur adipiscing elit. Vestibulum nibh urna, t.consectetur adipiscing elit. Vestibulum nibh urna,  Vestibulum nibh urna,it.</p>
-		  <p class="tab-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit,There are many variations of passages of Lorem Ipsum available, 
-									sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-		</div>*@
+
 		<div class="tab-pane" id="source">
 		  <div class="response">
 						<div class="media response-info">
@@ -337,3 +340,34 @@
 	  } )( jQuery );
 
 	</script>
+
+
+@section pageScripts{
+	<script>
+		$('#AddToCartBtnId').on('click', function (e) {
+			e.preventDefault();
+			$.ajax({
+				url: '@Url.Action("CreateOrder", "Order")',
+				type: 'POST',
+				data: $('#AddToCartFormId').serialize(),
+
+				success: function (response) {
+					Swal.fire({
+						title: 'Information',
+						text: response.description,
+						icon: 'success',
+						confirmButtonText: 'Ok'
+					})
+				},
+				error: function (data) {
+					Swal.fire({
+						title: 'Information',
+						text: "Error",
+						icon: 'error',
+						confirmButtonText: 'Ok'
+					})
+				}
+			})
+		})
+	</script>
+}

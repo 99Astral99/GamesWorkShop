@@ -3,34 +3,34 @@ using GamesWorshop.DAL.Interfaces;
 
 namespace GamesWorshop.DAL.Repositories
 {
-    public class UserRepository : IBaseRepository<User>
+    public class CartRepostiroy : IBaseRepository<Cart>
     {
         private readonly AppDbContext _dbContext;
-        public UserRepository(AppDbContext dbContext)
+        public CartRepostiroy(AppDbContext dbContext)
         {
             _dbContext = dbContext;
         }
 
-        public async Task Create(User entity)
+        public async Task Create(Cart entity)
         {
-            await _dbContext.Users.AddAsync(entity);
+            await _dbContext.Carts.AddAsync(entity);
             await _dbContext.SaveChangesAsync();
         }
 
-        public async Task Delete(User entity)
+        public async Task Delete(Cart entity)
         {
-            _dbContext.Users.Remove(entity);
+            _dbContext.Carts.Remove(entity);
             await _dbContext.SaveChangesAsync();
         }
 
-        public IQueryable<User> GetAll()
+        public IQueryable<Cart> GetAll()
         {
-            return _dbContext.Users.AsQueryable();
+            return _dbContext.Carts.AsQueryable();
         }
 
-        public async Task<User> Update(User entity)
+        public async Task<Cart> Update(Cart entity)
         {
-            _dbContext.Users.Update(entity);
+            _dbContext.Carts.Update(entity);
             await _dbContext.SaveChangesAsync();
 
             return entity;

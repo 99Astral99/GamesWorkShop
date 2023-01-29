@@ -1,4 +1,4 @@
-﻿@*@model List<GamesWorkshop.Domain.Entities.Product>;*@
+﻿
 @model List<GamesWorkshop.Domain.View.ProductModels.ProductViewModel>;
 
 @{
@@ -98,7 +98,6 @@
 							</div>
 							<a class="product_name" asp-controller="Product" asp-action="GetProduct" asp-route-Id="@product.Id">@product.Name</a>
 							<p><a class="item_add" href="#"><i></i> <span class="item_price">@product.Price$</span></a></p>
-							<p><a class="item_add" asp-controller="Cart" asp-action="Add" asp-route-id="@product.Id"><i></i> <span class="item_price">Add to cart</span></a></p>
 					</div>
 				}
 					<div class="clearfix"></div>
@@ -168,6 +167,35 @@
 					});
 				   </script>
 				   <script type="text/javascript" src="~/js/jquery.flexisel.js"></script>
-				   </div>
-				   </div>
+
+@*		<script>
+			$('#AddToCart').on('click', function (e) {
+				e.preventDefault();
+				//const model = $('#AddToCart').serialize();
+				var model = $('#AddToCart').val();
+				$.ajax({
+					url: '@Url.Action("CreateOrder")',
+					type: 'POST',
+					data: model,
+					success: function (response) {
+						Swal.fire({
+							title: 'Information',
+							text: response.description,
+							icon: 'success',
+							confirmButtonText: 'Ok'
+						})
+					},
+					error: function (response) {
+						Swal.fire({
+							title: 'Information',
+							text: 'Error',
+							icon: 'error',
+							confirmButtonText: 'Ok'
+						})
+					}
+				})
+			});
+		</script>*@
+	</div>
+</div>
 
