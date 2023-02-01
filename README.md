@@ -29,5 +29,6 @@ What you can already do now:
 - Register
 - Login
 - Edit user profile
-- Possibility to change the password
-- Possibility to view the shopping cart
+- Change the password
+- View the shopping cart
+- Write a letter to contact the support of the store
