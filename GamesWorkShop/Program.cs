@@ -80,6 +80,9 @@ builder.Services.AddScoped<IAccountService, AccountService>();
 builder.Services.AddScoped<IBaseRepository<UserAccount>, UserAccountRepository>();
 builder.Services.AddScoped<IUserAccountService, UserAccountService>();
 
+builder.Services.AddScoped<IBaseRepository<Contact>, ContactRepository>();
+builder.Services.AddScoped<IContactService, ContactService>();
+
 var app = builder.Build();
 
 if (!app.Environment.IsDevelopment())

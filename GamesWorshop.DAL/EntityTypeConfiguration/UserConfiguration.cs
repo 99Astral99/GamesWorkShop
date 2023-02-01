@@ -17,6 +17,7 @@ namespace GamesWorshop.DAL.EntityTypeConfiguration
                 HasForeignKey<UserAccount>(u => u.UserId)
                .OnDelete(DeleteBehavior.Cascade); 
 
+
             builder.HasOne(u => u.Cart)
                 .WithOne(x => x.User)
                 .HasPrincipalKey<User>(x=>x.Id)
@@ -27,7 +28,7 @@ namespace GamesWorshop.DAL.EntityTypeConfiguration
                 Id = new Guid("480A013F-9EB1-4890-B543-3FD416466804"),
                 Email = "customer@gmail.com",
                 NormalizedEmail = "CUSTOMER@GMAIL.COM",
-                UserName = "AmericanPsycho",
+                UserName = "PatrickBateman",
                 NormalizedUserName = "PATRICK",
                 SecurityStamp = Guid.NewGuid().ToString(),
             };

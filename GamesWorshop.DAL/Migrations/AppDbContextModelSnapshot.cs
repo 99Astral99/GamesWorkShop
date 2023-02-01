@@ -53,6 +53,54 @@ namespace GamesWorshop.DAL.Migrations
                         });
                 });
 
+            modelBuilder.Entity("GamesWorkshop.Domain.Entities.Contact", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Message")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Subject")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Contacts", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Email = "customer@gmail.com",
+                            Message = "Hello, I'm curious, when will the \"KV128 Stormsurge\" model be available?",
+                            Subject = "Delivery of goods.",
+                            UserId = new Guid("480a013f-9eb1-4890-b543-3fd416466804")
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Email = "admin@gmail.com",
+                            Message = "Test",
+                            Subject = "Test",
+                            UserId = new Guid("ec274526-d90e-4ecd-bd85-cd84ed7ae0e9")
+                        });
+                });
+
             modelBuilder.Entity("GamesWorkshop.Domain.Entities.Order", b =>
                 {
                     b.Property<int>("Id")
@@ -171,14 +219,14 @@ namespace GamesWorshop.DAL.Migrations
                         new
                         {
                             Id = new Guid("ec274526-d90e-4ecd-bd85-cd84ed7bb0b1"),
-                            ConcurrencyStamp = "cad698fd-a705-41ce-b67e-060dcef3b11e",
+                            ConcurrencyStamp = "4a8b4e52-7bf4-43c9-a15d-4f27c333c010",
                             Name = "User",
                             NormalizedName = "USER"
                         },
                         new
                         {
                             Id = new Guid("fb53fcfe-3b74-4f77-8b9e-e543a38e1bc6"),
-                            ConcurrencyStamp = "2509c7ee-72c9-4930-96a1-5692ba0f3e3b",
+                            ConcurrencyStamp = "964628ad-bd0d-4fcc-97a1-dddd7cc55db8",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         });
@@ -258,31 +306,31 @@ namespace GamesWorshop.DAL.Migrations
                         {
                             Id = new Guid("480a013f-9eb1-4890-b543-3fd416466804"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "454dd63d-a520-4bb4-b161-e6b2ea219c0f",
+                            ConcurrencyStamp = "084d2465-986a-47f9-a1d3-f6964143a72e",
                             Email = "customer@gmail.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "CUSTOMER@GMAIL.COM",
                             NormalizedUserName = "PATRICK",
-                            PasswordHash = "AQAAAAEAACcQAAAAEAS/KwdxVKHDiLj0Wg1i106MOwuVZUZn+H6NzE9RcPxb/i8u/3SRUR69ympDDYW1bw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEBM/sYpbScKoLAoO10EuhJ53sj8UhiEoxyZqd6jRIL47EKZUyTFA6+Y9FIkahwp0Cw==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "114e452a-3eb9-423c-923a-81047b0d9cc3",
+                            SecurityStamp = "dc5548c9-49fd-4c53-88a9-b07f024f1069",
                             TwoFactorEnabled = false,
-                            UserName = "AmericanPsycho"
+                            UserName = "PatrickBateman"
                         },
                         new
                         {
                             Id = new Guid("ec274526-d90e-4ecd-bd85-cd84ed7ae0e9"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "5158cbe5-e6f6-4bb1-9733-ad430540f33a",
+                            ConcurrencyStamp = "c01ae625-3c7f-44f4-9c50-94dbf5675a76",
                             Email = "admin@gmail.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@GMAIL.COM",
                             NormalizedUserName = "PAUL",
-                            PasswordHash = "AQAAAAEAACcQAAAAEL4sSSWRDuugsexhtwG/tgHwENG51hv4d13+XIAsg3lEoxhO8UTXvkzlFTYv92zc9w==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEFBdOxJda6kqH9GK1NqEFtz1OPXtFJVto3ZRXHO0cWAyiTI05slz8mUsEBlKpCyYJw==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "5bdc562b-3d1b-4a50-b3e5-8037d982c671",
+                            SecurityStamp = "185e0533-397e-4e42-8d57-f98d96fdcc90",
                             TwoFactorEnabled = false,
                             UserName = "PaulAllen"
                         });
@@ -475,6 +523,17 @@ namespace GamesWorshop.DAL.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("GamesWorkshop.Domain.Entities.Contact", b =>
+                {
+                    b.HasOne("GamesWorkshop.Domain.Entities.User", "User")
+                        .WithMany("Contacts")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("GamesWorkshop.Domain.Entities.Order", b =>
                 {
                     b.HasOne("GamesWorkshop.Domain.Entities.Cart", "Cart")
@@ -557,6 +616,8 @@ namespace GamesWorshop.DAL.Migrations
                 {
                     b.Navigation("Cart")
                         .IsRequired();
+
+                    b.Navigation("Contacts");
 
                     b.Navigation("UserAccount")
                         .IsRequired();

@@ -199,6 +199,28 @@ namespace GamesWorshop.DAL.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Contacts",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Subject = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Message = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Contacts", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Contacts_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Profiles",
                 columns: table => new
                 {
@@ -249,8 +271,8 @@ namespace GamesWorshop.DAL.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { new Guid("ec274526-d90e-4ecd-bd85-cd84ed7bb0b1"), "cad698fd-a705-41ce-b67e-060dcef3b11e", "User", "USER" },
-                    { new Guid("fb53fcfe-3b74-4f77-8b9e-e543a38e1bc6"), "2509c7ee-72c9-4930-96a1-5692ba0f3e3b", "Admin", "ADMIN" }
+                    { new Guid("ec274526-d90e-4ecd-bd85-cd84ed7bb0b1"), "4a8b4e52-7bf4-43c9-a15d-4f27c333c010", "User", "USER" },
+                    { new Guid("fb53fcfe-3b74-4f77-8b9e-e543a38e1bc6"), "964628ad-bd0d-4fcc-97a1-dddd7cc55db8", "Admin", "ADMIN" }
                 });
 
             migrationBuilder.InsertData(
@@ -258,8 +280,8 @@ namespace GamesWorshop.DAL.Migrations
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
                 values: new object[,]
                 {
-                    { new Guid("480a013f-9eb1-4890-b543-3fd416466804"), 0, "454dd63d-a520-4bb4-b161-e6b2ea219c0f", "customer@gmail.com", false, false, null, "CUSTOMER@GMAIL.COM", "PATRICK", "AQAAAAEAACcQAAAAEAS/KwdxVKHDiLj0Wg1i106MOwuVZUZn+H6NzE9RcPxb/i8u/3SRUR69ympDDYW1bw==", null, false, "114e452a-3eb9-423c-923a-81047b0d9cc3", false, "AmericanPsycho" },
-                    { new Guid("ec274526-d90e-4ecd-bd85-cd84ed7ae0e9"), 0, "5158cbe5-e6f6-4bb1-9733-ad430540f33a", "admin@gmail.com", false, false, null, "ADMIN@GMAIL.COM", "PAUL", "AQAAAAEAACcQAAAAEL4sSSWRDuugsexhtwG/tgHwENG51hv4d13+XIAsg3lEoxhO8UTXvkzlFTYv92zc9w==", null, false, "5bdc562b-3d1b-4a50-b3e5-8037d982c671", false, "PaulAllen" }
+                    { new Guid("480a013f-9eb1-4890-b543-3fd416466804"), 0, "084d2465-986a-47f9-a1d3-f6964143a72e", "customer@gmail.com", false, false, null, "CUSTOMER@GMAIL.COM", "PATRICK", "AQAAAAEAACcQAAAAEBM/sYpbScKoLAoO10EuhJ53sj8UhiEoxyZqd6jRIL47EKZUyTFA6+Y9FIkahwp0Cw==", null, false, "dc5548c9-49fd-4c53-88a9-b07f024f1069", false, "PatrickBateman" },
+                    { new Guid("ec274526-d90e-4ecd-bd85-cd84ed7ae0e9"), 0, "c01ae625-3c7f-44f4-9c50-94dbf5675a76", "admin@gmail.com", false, false, null, "ADMIN@GMAIL.COM", "PAUL", "AQAAAAEAACcQAAAAEFBdOxJda6kqH9GK1NqEFtz1OPXtFJVto3ZRXHO0cWAyiTI05slz8mUsEBlKpCyYJw==", null, false, "185e0533-397e-4e42-8d57-f98d96fdcc90", false, "PaulAllen" }
                 });
 
             migrationBuilder.InsertData(
@@ -278,6 +300,15 @@ namespace GamesWorshop.DAL.Migrations
                 {
                     { 1, new Guid("480a013f-9eb1-4890-b543-3fd416466804") },
                     { 2, new Guid("ec274526-d90e-4ecd-bd85-cd84ed7ae0e9") }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Contacts",
+                columns: new[] { "Id", "Email", "Message", "Subject", "UserId" },
+                values: new object[,]
+                {
+                    { 1, "customer@gmail.com", "Hello, I'm curious, when will the \"KV128 Stormsurge\" model be available?", "Delivery of goods.", new Guid("480a013f-9eb1-4890-b543-3fd416466804") },
+                    { 2, "admin@gmail.com", "Test", "Test", new Guid("ec274526-d90e-4ecd-bd85-cd84ed7ae0e9") }
                 });
 
             migrationBuilder.InsertData(
@@ -342,6 +373,11 @@ namespace GamesWorshop.DAL.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
+                name: "IX_Contacts_UserId",
+                table: "Contacts",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Orders_CartId",
                 table: "Orders",
                 column: "CartId");
@@ -379,6 +415,9 @@ namespace GamesWorshop.DAL.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetUserTokens");
+
+            migrationBuilder.DropTable(
+                name: "Contacts");
 
             migrationBuilder.DropTable(
                 name: "Orders");

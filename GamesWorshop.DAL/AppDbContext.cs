@@ -17,14 +17,15 @@ namespace GamesWorshop.DAL
         protected override void OnModelCreating(ModelBuilder builder)
         {
             builder.ApplyConfiguration(new ProductConfiguration());
-			builder.ApplyConfiguration(new OrderConfiguration());
-			builder.ApplyConfiguration(new CartConfiguration());
-			builder.ApplyConfiguration(new UserConfiguration());
-			builder.ApplyConfiguration(new UserAccountConfiguration());
-			builder.ApplyConfiguration(new RoleConfiguration());
+            builder.ApplyConfiguration(new OrderConfiguration());
+            builder.ApplyConfiguration(new CartConfiguration());
+            builder.ApplyConfiguration(new UserConfiguration());
+            builder.ApplyConfiguration(new UserAccountConfiguration());
+            builder.ApplyConfiguration(new RoleConfiguration());
+            builder.ApplyConfiguration(new ContactConfiguration());
 
-			//Seeding the relation between our user and role to AspNetUserRoles table
-			builder.Entity<IdentityUserRole<Guid>>().HasData(
+            //Seeding the relation between our user and role to AspNetUserRoles table
+            builder.Entity<IdentityUserRole<Guid>>().HasData(
                 new IdentityUserRole<Guid>
                 {
                     RoleId = new Guid("EC274526-D90E-4ECD-BD85-CD84ED7BB0B1"),
@@ -45,5 +46,6 @@ namespace GamesWorshop.DAL
         public DbSet<UserAccount> Profiles { get; set; }
         public DbSet<Order> Orders { get; set; }
         public DbSet<Cart> Carts { get; set; }
+        public DbSet<Contact> Contacts { get; set; }
     }
 }
