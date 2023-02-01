@@ -25,18 +25,6 @@ namespace GamesWorkshop.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetProducts()
-        {
-            var response = await _productService.GetProducts();
-            if (response.StatusCode == Domain.Enums.StatusCode.OK)
-            {
-                return View(response.Data.ToList());
-            }
-
-            return RedirectToAction("Error");
-        }
-
-        [HttpGet]
         public async Task<IActionResult> GetProduct(int id)
         {
             var response = await _productService.GetProduct(id);

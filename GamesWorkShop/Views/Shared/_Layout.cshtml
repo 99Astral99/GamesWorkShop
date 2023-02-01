@@ -48,8 +48,8 @@
 
 								<div class="header-right">
 									<div class="cart box_1">
-										<a asp-controller="Cart" asp-action="Index">
-											<h3> <span class="simpleCart_total"> $0.00 </span> (<span id="simpleCart_quantity" class="simpleCart_quantity"> 0 </span>)<img src="~/images/bag.png" alt=""></h3>
+										<a asp-controller="Cart" asp-action="Detail">
+											<img asp-controller="Cart" asp-action="Detail" src="~/images/bag.png" alt="">
 										</a>
 										<p><a a asp-controller="Cart" asp-action="Detail">Cart</a></p>
 										<div class="clearfix"> </div>
@@ -102,7 +102,6 @@
 							<div class="col-sm-6">
 								<ul class="multi-column-dropdown">
 									<h6>CATEGORIES</h6>
-									<li><a asp-controller="Product" asp-action="GetProducts">Get avaliable products</a></li>
 									<li><a asp-controller="Product" asp-action="GetProductsByCategory" asp-route-category="0">Space Marines</a></li>
 									<li><a asp-controller="Product" asp-action="GetProductsByCategory" asp-route-category="1">Armies Of The Imperium</a></li>
 									<li><a asp-controller="Product" asp-action="GetProductsByCategory" asp-route-category="2">Armies of Chaos</a></li>
@@ -115,7 +114,7 @@
 						</div>
 					</ul>
 				</li>
-					<li><a asp-controller="User" asp-action="Contact">CONTACT</a></li>
+					<li><a asp-controller="Contact" asp-action="GetContact">CONTACT</a></li>
 			</ul>
 		</div>
 		<!--/.navbar-collapse-->

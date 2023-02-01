@@ -19,44 +19,11 @@ namespace GamesWorkshop.Service.Implementations
             _productRepository = productRepository;
             _mapper = mapper;
         }
-
-        public async Task<IBaseResponse<IEnumerable<ProductViewModel>>> GetProducts()
-        {
-            try
-            {
-                var products = await _productRepository.GetAll().ToListAsync();
-                if (products.Count() == 0)
-                {
-                    return new BaseResponse<IEnumerable<ProductViewModel>>()
-                    {
-                        Description = "Zero items found",
-                        StatusCode = StatusCode.OK
-                    };
-                }
-
-                var data = _mapper.Map<List<ProductViewModel>>(products);
-
-                return new BaseResponse<IEnumerable<ProductViewModel>>()
-                {
-                    StatusCode = StatusCode.OK,
-                    Data = data
-                };
-
-            }
-            catch (Exception ex)
-            {
-                return new BaseResponse<IEnumerable<ProductViewModel>>()
-                {
-                    Description = $"[GetProducts] : {ex.Message}"
-                };
-            }
-        }
         public async Task<IBaseResponse<IEnumerable<ProductViewModel>>> GetTwelveMostRecentProducts()
         {
             try
             {
                 var products = await _productRepository.GetAll().OrderByDescending(d => d.CreatedDate).Take(12).ToListAsync();
-                //return await _dbContext.Products.OrderByDescending(d => d.CreatedDate).Take(12).ToListAsync();
                 if (products.Count() == 0)
                 {
                     return new BaseResponse<IEnumerable<ProductViewModel>>()
