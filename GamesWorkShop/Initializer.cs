@@ -11,7 +11,7 @@ namespace GamesWorkshop
 		public static void InitializeRepositories(this IServiceCollection services)
 		{
 			services.AddScoped<IBaseRepository<Product>, ProductRepository>();
-			services.AddScoped<IBaseRepository<Cart>, CartRepostiroy>();
+			services.AddScoped<IBaseRepository<Cart>, CartRepository>();
 			services.AddScoped<IBaseRepository<Order>, OrderRepository>();
 			services.AddScoped<IBaseRepository<User>, UserRepository>();
 			services.AddScoped<IBaseRepository<UserAccount>, UserAccountRepository>();

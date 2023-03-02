@@ -27,8 +27,6 @@ namespace GamesWorkshop.Service.Implementations
                     .ThenInclude(x => x.Orders)
                     .FirstOrDefaultAsync(x => x.UserName.Equals(userName));
 
-
-
                 if (user == null)
                 {
                     return new BaseResponse<IEnumerable<OrderViewModel>>()

@@ -27,7 +27,7 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 
 builder.Services.AddIdentity<User, Role>(opt =>
 {
-	//opt.User.RequireUniqueEmail = true;
+	opt.User.RequireUniqueEmail = true;
 	opt.User.AllowedUserNameCharacters =
 	"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ123456789";
 

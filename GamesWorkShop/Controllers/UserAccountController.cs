@@ -8,6 +8,7 @@ using System.Security.Claims;
 
 namespace GamesWorkshop.Controllers
 {
+    [Authorize]
     public class UserAccountController : Controller
     {
         private readonly IUserAccountService _userAccountProfleService;

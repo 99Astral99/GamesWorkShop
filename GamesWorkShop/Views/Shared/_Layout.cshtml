@@ -7,6 +7,7 @@
 	@await Html.PartialAsync("ScriptsPartial");
 	@await Html.PartialAsync("MetatagsPartial");
 	*@
+
 	<title>@ViewData["Title"] - GamesWorkShop</title>
 	<link href="~/css/bootstrap.css" rel='stylesheet' asp-append-version="true" type='text/css' />
 	<script asp-append-version="true" src="~/js/jquery.min.js"></script>
@@ -33,7 +34,7 @@
 						<div class="header-top-left">
 							<ul>
 								<li><a asp-controller="Account" asp-action="Login"><span class="glyphicon glyphicon-user"> </span>Login</a></li>
-									<li><a asp-controller="Account" asp-action="Registration"><span class="glyphicon glyphicon-lock"> </span>Create an Account</a></li>			
+								<li><a asp-controller="Account" asp-action="Registration"><span class="glyphicon glyphicon-lock"> </span>Create an Account</a></li>
 							</ul>
 						</div>
 					}
@@ -41,20 +42,18 @@
 							<div class="header-top-left">
 								<ul>
 										<li><a asp-controller="UserAccount" asp-action="Detail"><span class="glyphicon glyphicon-user"> </span>Account</a></li>
-										@if(User.IsInRole("Admin")){
-											<li><a asp-controller="Admin" asp-action="Index"><span class="glyphicon glyphicon-user"> </span>Admin page</a></li>
-										}
 										<li><a asp-controller="Account" asp-action="Logout"><span class="glyphicon glyphicon-lock"> </span>Logout</a></li>
 
-								<div class="header-right">
-									<div class="cart box_1">
-										<a asp-controller="Cart" asp-action="Detail">
-											<img asp-controller="Cart" asp-action="Detail" src="~/images/bag.png" alt="">
-										</a>
-										<p><a a asp-controller="Cart" asp-action="Detail">Cart</a></p>
-										<div class="clearfix"> </div>
-									</div>
-								</div>
+										<li>
+											<div class="header-right">
+												<div class="cart box_1">
+													<a asp-controller="Cart" asp-action="Detail">
+														<img asp-controller="Cart" asp-action="Detail" src="~/images/bag.png" alt="">
+													</a>
+													<div class="clearfix"> </div>
+												</div>
+											</div>
+										</li>
 								</ul>
 							</div>
 					}
@@ -114,7 +113,31 @@
 						</div>
 					</ul>
 				</li>
-					<li><a asp-controller="Contact" asp-action="GetContact">CONTACT</a></li>
+						@if (User.IsInRole("Admin"))
+						{
+							<li class="dropdown">
+								<a href="#" class="dropdown-toggle" data-toggle="dropdown">Admin <b class="caret"></b></a>
+								<ul class="dropdown-menu multi-column columns-2">
+									<div class="row">
+										<div class="col-sm-6">
+											<ul class="multi-column-dropdown">
+												<h6>Products</h6>
+												<li><a asp-controller="Admin" asp-action="EditProducts">Edit products</a></li>
+												<li><a href="products.html">Add products</a></li>
+											</ul>
+										</div>
+										<div class="col-sm-6">
+											<ul class="multi-column-dropdown">
+												<h6>Users</h6>
+												<li><a href="products.html">User management</a></li>
+											</ul>
+										</div>
+									</div>
+									</ul>
+								<div class="clearfix"></div>
+							</li>
+						}
+				<li><a asp-controller="Contact" asp-action="GetContact">CONTACT</a></li>
 			</ul>
 		</div>
 		<!--/.navbar-collapse-->
@@ -213,3 +236,5 @@
 		@await RenderSectionAsync("pageScripts", false);
 </body>
 </html>
+
+

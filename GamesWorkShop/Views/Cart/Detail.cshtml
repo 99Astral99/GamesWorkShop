@@ -53,9 +53,7 @@ else
 				@foreach (var product in Model)
 				{
 				<div class="cart-header">
-							<a asp-controller="Order" asp-action="DeleteOrder" asp-route-id="@product.Id"><div class="close1"></div></a>
-						@*<a asp-controller="Order" asp-action="DeleteOrder" asp-route-id="@product.Id">Delete Product</a>*@
-
+							<a asp-controller="Order" asp-action="DeleteOrder" asp-route-id="@product.Id"><div class="close1"></div></a>			
 					<div class="cart-sec simpleCart_shelfItem">
 						<div class="cart-item cyc">
 							<img src="@product.ImageSrc" class="img-responsive" alt="">

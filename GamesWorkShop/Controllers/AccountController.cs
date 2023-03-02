@@ -30,7 +30,12 @@ namespace GamesWorkshop.Controllers
             var result = await _accountService.RegistrationAsync(vm);
 
             TempData["msg"] = result.Description;
-            return Json(new { description = result.Description });
+            if(result.StatusCode == Domain.Enums.StatusCode.OK)
+            {
+				return Json(new { description = result.Description });
+			}
+
+            return BadRequest(result.Description);
         }
 
         [HttpGet]

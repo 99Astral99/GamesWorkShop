@@ -3,10 +3,10 @@ using GamesWorshop.DAL.Interfaces;
 
 namespace GamesWorshop.DAL.Repositories
 {
-    public class CartRepostiroy : IBaseRepository<Cart>
+    public class CartRepository : IBaseRepository<Cart>
     {
         private readonly AppDbContext _dbContext;
-        public CartRepostiroy(AppDbContext dbContext)
+        public CartRepository(AppDbContext dbContext)
         {
             _dbContext = dbContext;
         }

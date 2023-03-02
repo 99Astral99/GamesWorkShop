@@ -167,35 +167,6 @@
 					});
 				   </script>
 				   <script type="text/javascript" src="~/js/jquery.flexisel.js"></script>
-
-@*		<script>
-			$('#AddToCart').on('click', function (e) {
-				e.preventDefault();
-				//const model = $('#AddToCart').serialize();
-				var model = $('#AddToCart').val();
-				$.ajax({
-					url: '@Url.Action("CreateOrder")',
-					type: 'POST',
-					data: model,
-					success: function (response) {
-						Swal.fire({
-							title: 'Information',
-							text: response.description,
-							icon: 'success',
-							confirmButtonText: 'Ok'
-						})
-					},
-					error: function (response) {
-						Swal.fire({
-							title: 'Information',
-							text: 'Error',
-							icon: 'error',
-							confirmButtonText: 'Ok'
-						})
-					}
-				})
-			});
-		</script>*@
 	</div>
 </div>
 

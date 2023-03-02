@@ -10,8 +10,8 @@ namespace GamesWorkshop.Domain.Mappings
         {
             CreateMap<Product, ProductDetailsViewModel>()
                 .ForMember(c => c.Category, opt => opt.MapFrom(c => c.Category.ToString()));
-
-            CreateMap<Product, ProductViewModel>()
+			
+			CreateMap<Product, ProductViewModel>()
                 .ForMember(c => c.Category, opt => opt.MapFrom(c => c.Category.ToString()));
         }
     }
