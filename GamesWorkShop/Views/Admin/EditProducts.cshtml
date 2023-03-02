@@ -1,0 +1,88 @@
+﻿@model List<GamesWorkshop.Domain.View.ProductModels.ProductViewModel>;
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<table class="table" id="productsTableId" style="margin-top:50px;">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">Id</th>
+      <th scope="col">Name</th>
+      <th scope="col">Price (&#8364;)</th>
+      <th scope="col">Amount</th>
+    </tr>
+  </thead>
+ <tbody>
+ @foreach (var product in Model)
+        {
+        <tr>    
+          <th scope="row">@product.Id</th>
+          <td style="width:30%">@product.Name</td>
+          <td>@product.Price</td>
+          <td>@product.Amount
+          </td>
+          <td>
+           <button type="button" class="btn btn-primary" onclick="openModal({ url: '/Product/GetProduct', data: '@product.Id' })" data-toggle="ajax-modal" data-target="Modal">
+                        Edit
+          </button>
+          </td>
+          <td>
+			  <form>
+						<button asp-action="DeleteProduct" asp-controller="Product" asp-route-Id="@product.Id" type="submit" id="deleteBtnId" class="btn btn-dark">Delete</button>
+			  </form>
+          </td>
+        </tr>
+        }    
+  </tbody>
+</table>
+
+
+<!-- Modal -->
+<div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="modal" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h3 class="modal-title" id="exampleModalLongTitle">Product information</h3>
+			</div>
+			<div class="modal-body" id="modalBodyId"></div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+				<button type="submit" class="btn btn-primary" id="modalSubmitBtnId">Save changes here</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+@section pageScripts
+{
+	<script src="~/js/modal.js"></script>
+	<script>
+		$('#modalSubmitBtnId').on('click', function () {
+			const data = $('#modalFormId').serialize()
+			$.ajax({
+				url: '@Url.Action("Save", "Product")',
+				type: 'POST',
+				data: data,
+
+				success: function (response) {
+					Swal.fire({
+						title: 'Information',
+						text: response.description,
+						icon: 'success',
+						confirmButtonText: 'Ok'
+					})
+				},
+				error: function (data) {
+					Swal.fire({
+						title: 'Information',
+						text: "Error",
+						icon: 'error',
+						confirmButtonText: 'Ok'
+					})
+				}
+			})
+		})
+	</script>
+}

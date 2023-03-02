@@ -1,0 +1,67 @@
+﻿@model GamesWorkshop.Domain.View.ProductModels.ProductDetailsViewModel;
+
+<form method="post" id="modalFormId">
+    <div asp-asp-validation-summary="@Model">
+        <input type="hidden" asp-for="@Model.Id" />
+        <div style="float:left;">
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon3" style="font-weight:bold">Name</span>
+                </div>
+                <input type="text" class="form-control" asp-for="@Model.Name" aria-describedby="basic-addon3">
+                <span class="text-danger" asp-validation-for="@Model.Name"></span>
+            </div>
+
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon3">Price</span>
+                </div>
+                <input min="1" max="200" class="form-control" type="number" asp-for="@Model.Price" aria-describedby="basic-addon3">
+                <span class="text-danger" asp-validation-for="@Model.Price"></span>
+            </div>
+        </div>
+
+        <div style=" float:right;">
+
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon3">Amount</span>
+                </div>
+                <input min="1" max="300" class="form-control" asp-for="@Model.Amount" aria-describedby="basic-addon3">
+                <span class="text-danger" asp-validation-for="@Model.Amount"></span>
+            </div>
+
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon3">Category : @Model.Category</span><br />
+                </div>
+                <select style="width:200px" asp-for="@Model.Category" class="form-control">
+                    <option>Select</option>
+                    <option value="0">Space Marines</option>
+                    <option value="1">Armies Of The Imperium</option>
+                    <option value="2">Armies Of Chaos</option>
+                    <option value="3">Xenos Armies</option>
+                    <option value="4">Terrain</option>
+                    <option value="5">Ways to play</option>
+                </select>
+                <span class="text-danger" asp-validation-for="@Model.Category"></span>
+            </div>
+        </div>
+
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text" id="basic-addon3">Description</span>
+            </div>
+            <textarea style="height:150px; width:400px; resize:none;" class="form-control" asp-for="@Model.Description"></textarea>
+        </div>
+
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text" id="basic-addon3">Features</span>
+            </div>
+            <textarea style="height:150px; width:400px;resize:none;" class="form-control" asp-for="@Model.Features"></textarea>
+        </div>
+    </div>
+</form>
+
+

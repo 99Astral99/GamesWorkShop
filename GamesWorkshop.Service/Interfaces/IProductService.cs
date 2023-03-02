@@ -8,10 +8,11 @@ namespace GamesWorkshop.Service.Interfaces
     {
         Task<IBaseResponse<IEnumerable<ProductViewModel>>> GetProductsByCategory(string category);
         Task<IBaseResponse<IEnumerable<ProductViewModel>>> GetTwelveMostRecentProducts();
-        Task<IBaseResponse<ProductDetailsViewModel>> GetProduct(int id);
+		Task<IBaseResponse<IEnumerable<ProductViewModel>>> GetProducts();
+		Task<IBaseResponse<ProductDetailsViewModel>> GetProduct(int id);
         Task<IBaseResponse<ProductDetailsViewModel>> GetByName(string name);
         Task<IBaseResponse<Product>> CreateProduct(ProductDetailsViewModel productViewModel);
         Task<IBaseResponse<bool>> DeleteProduct(int id);
-        Task<IBaseResponse<Product>> Edit(int id, ProductDetailsViewModel vm);
+        Task<IBaseResponse<Product>> Edit(ProductDetailsViewModel vm);
     }
 }

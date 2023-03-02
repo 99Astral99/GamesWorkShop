@@ -25,11 +25,14 @@ namespace GamesWorkshop.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetProduct(int id)
+        public async Task<IActionResult> GetProduct(int id, bool isPartial)
         {
             var response = await _productService.GetProduct(id);
             if (response.StatusCode == Domain.Enums.StatusCode.OK)
             {
+                if (isPartial)
+                    return PartialView("ProductModal", response.Data);
+
                 return View(response.Data);
             }
 
@@ -53,44 +56,26 @@ namespace GamesWorkshop.Controllers
             var response = await _productService.DeleteProduct(id);
             if (response.StatusCode == Domain.Enums.StatusCode.OK)
             {
-                return View(response.Data);
+                return RedirectToAction("Edit", "Admin");
             }
 
             return RedirectToAction("Error");
         }
 
-        [HttpGet]
-        public async Task<IActionResult> Save(int id)
-        {
-            if (id == 0)
-            {
-                return View();
-            }
-            var response = await _productService.GetProduct(id);
-            if (response.StatusCode == Domain.Enums.StatusCode.OK)
-            {
-                return View(response.Data);
-            }
-
-            return RedirectToAction("Error");
-        }
 
         [HttpPost]
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Save(ProductDetailsViewModel vm)
         {
+
             if (ModelState.IsValid)
             {
-                if (vm.Id == 0)
-                {
-                    await _productService.CreateProduct(vm);
-                }
-                else
-                {
-                    await _productService.Edit(vm.Id, vm);
-                }
+                var response = await _productService.Edit(vm);
+
+                return Json(new { description = response.Description });
             }
-            return RedirectToAction("GetProducts");
+
+            return StatusCode(StatusCodes.Status500InternalServerError);
         }
     }
 }

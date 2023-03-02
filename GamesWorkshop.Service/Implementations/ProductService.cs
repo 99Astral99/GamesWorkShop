@@ -207,11 +207,11 @@ namespace GamesWorkshop.Service.Implementations
                 };
             }
         }
-        public async Task<IBaseResponse<Product>> Edit(int id, ProductDetailsViewModel vm)
+        public async Task<IBaseResponse<Product>> Edit(ProductDetailsViewModel vm)
         {
             try
             {
-                var product = await _productRepository.GetAll().FirstOrDefaultAsync(p => p.Id == id);
+                var product = await _productRepository.GetAll().FirstOrDefaultAsync(p => p.Id == vm.Id);
                 if (product == null)
                 {
                     return new BaseResponse<Product>()
@@ -225,27 +225,62 @@ namespace GamesWorkshop.Service.Implementations
                 product.Price = vm.Price;
                 product.Description = vm.Description;
                 product.Amount = vm.Amount;
-                product.Image1 = vm.Image1;
-                product.Image2 = vm.Image2;
-                product.Image3 = vm.Image3;
-                product.Image4 = vm.Image4;
+                product.Features = vm.Features;
                 product.Category = (Category)Convert.ToInt32(vm.Category);
-                product.CreatedDate = vm.CreatedDate;
+
+                /*You can use your own configuration of fields*/
+                //product.ImageSrc = vm.ImageSrc;
+                //product.Image1 = vm.Image1;
+                //product.Image2 = vm.Image2;
+                //product.Image3 = vm.Image3;
+                //product.Image4 = vm.Image4;
+                //product.CreatedDate = vm.CreatedDate;
 
                 await _productRepository.Update(product);
 
                 return new BaseResponse<Product>()
                 {
                     Data = product,
-                    StatusCode = StatusCode.OK
+                    StatusCode = StatusCode.OK,
+                    Description = "Changes saved"
                 };
             }
             catch (Exception ex)
             {
                 return new BaseResponse<Product>()
                 {
-                    Description = $"[DeleteProduct] : {ex.Message}",
+                    Description = $"[Edit] : {ex.Message}",
                     StatusCode = StatusCode.InternalServerError
+                };
+            }
+        }
+
+        public async Task<IBaseResponse<IEnumerable<ProductViewModel>>> GetProducts()
+        {
+            try
+            {
+                var products = await _productRepository.GetAll().ToListAsync();
+                if (products.Count() == 0)
+                {
+                    return new BaseResponse<IEnumerable<ProductViewModel>>()
+                    {
+                        StatusCode = StatusCode.ProductNotFound,
+                        Description = "Products not found"
+                    };
+                }
+                var data = _mapper.Map<List<ProductViewModel>>(products);
+                return new BaseResponse<IEnumerable<ProductViewModel>>()
+                {
+                    StatusCode = StatusCode.OK,
+                    Data = data,
+                };
+            }
+            catch (Exception ex)
+            {
+                return new BaseResponse<IEnumerable<ProductViewModel>>
+                {
+                    Description = $"[DeleteProduct] : {ex.Message}",
+                    StatusCode = StatusCode.InternalServerError,
                 };
             }
         }
