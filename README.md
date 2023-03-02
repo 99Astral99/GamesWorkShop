@@ -32,3 +32,6 @@ What you can already do now:
 - Change the password
 - View the shopping cart
 - Write a letter to contact the support of the store
+
+### Admin
+- Edit products
