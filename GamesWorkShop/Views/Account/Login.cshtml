@@ -36,17 +36,16 @@
 					  <div>
 						<span>Email Address<label>*</label></span>
 						<input asp-for="Email" type="text"> 
-						<span class="text-danger" asp-validation-for="Email"></span>
 					  </div>
 					  <div>
 						<span>Password<label>*</label></span>
 						<input asp-for="Password" type="password"> 
-						<span class="text-danger" asp-validation-for="Password"></span>
 					  </div>
 					  <div>
 						  <span>Remember Me?</span>
 						  <input asp-for="RememberMe" class="form-check-input"/>
 					  </div>
+						<div asp-validation-summary="All" class="text-danger"></div>
 					  <a class="forgot" href="#">Forgot Your Password?</a>
 					  <input type="submit" value="Login">
 					</form>
