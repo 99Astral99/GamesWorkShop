@@ -151,6 +151,7 @@ namespace GamesWorkshop.Service.Implementations
                 var product = new Product()
                 {
                     Description = productViewModel.Description,
+                    Features= productViewModel.Features,
                     Name = productViewModel.Name,
                     Price = productViewModel.Price,
                     Amount = productViewModel.Amount,
@@ -161,10 +162,12 @@ namespace GamesWorkshop.Service.Implementations
                     Image3 = productViewModel.Image3,
                     Image4 = productViewModel.Image4,
                     Image5 = productViewModel.Image5,
-                    CreatedDate = productViewModel.CreatedDate,
+                    CreatedDate = DateTime.Now,
                 };
 
                 await _productRepository.Create(product);
+
+                return new BaseResponse<Product> { Description = "Product added", StatusCode = StatusCode.OK };
             }
             catch (Exception ex)
             {
@@ -174,7 +177,6 @@ namespace GamesWorkshop.Service.Implementations
                     StatusCode = StatusCode.InternalServerError
                 };
             }
-            return new BaseResponse<Product> { };
         }
         public async Task<IBaseResponse<bool>> DeleteProduct(int id)
         {
@@ -227,13 +229,12 @@ namespace GamesWorkshop.Service.Implementations
                 product.Amount = vm.Amount;
                 product.Features = vm.Features;
                 product.Category = (Category)Convert.ToInt32(vm.Category);
-
-                /*You can use your own configuration of fields*/
-                //product.ImageSrc = vm.ImageSrc;
-                //product.Image1 = vm.Image1;
-                //product.Image2 = vm.Image2;
-                //product.Image3 = vm.Image3;
-                //product.Image4 = vm.Image4;
+                product.ImageSrc = vm.ImageSrc;
+                product.Image1 = vm.Image1;
+                product.Image2 = vm.Image2;
+                product.Image3 = vm.Image3;
+                product.Image4 = vm.Image4;
+                product.Image5 = vm.Image5;
                 //product.CreatedDate = vm.CreatedDate;
 
                 await _productRepository.Update(product);
@@ -254,7 +255,6 @@ namespace GamesWorkshop.Service.Implementations
                 };
             }
         }
-
         public async Task<IBaseResponse<IEnumerable<ProductViewModel>>> GetProducts()
         {
             try

@@ -1,8 +1,6 @@
 ﻿function openModal(parameters) {
     const id = parameters.data;
     const url = parameters.url;
-    const isPartial = true;
-
     const modal = $('#modal');
 
     if (id === undefined || url === undefined) {
@@ -13,7 +11,7 @@
     $.ajax({
         type: 'GET',
         url: url,
-        data: { "id": id, "IsPartial": isPartial },
+        data: { "id": id },
         success: function (response) {
             modal.find(".modal-body").html(response);
             modal.modal('show')

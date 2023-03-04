@@ -24,7 +24,8 @@ namespace GamesWorkshop.Domain.View.ProductModels
         [Range(1, 300, ErrorMessage = "Amount must be between 1 and 300")]
         public int Amount { get; set; }
         public DateTime? CreatedDate { get; set; }
-        public string? ImageSrc { get; set; }
+        [Required]
+        public string ImageSrc { get; set; }
         public string? Image1 { get; set; }
         public string? Image2 { get; set; }
         public string? Image3 { get; set; }

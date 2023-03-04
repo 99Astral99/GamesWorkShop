@@ -56,12 +56,28 @@ namespace GamesWorkshop.Controllers
             var response = await _productService.DeleteProduct(id);
             if (response.StatusCode == Domain.Enums.StatusCode.OK)
             {
-                return RedirectToAction("Edit", "Admin");
+                return RedirectToAction("EditProducts", "Admin");
             }
 
             return RedirectToAction("Error");
         }
 
+        [HttpGet]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> Save(int id)
+        {
+            if (id == 0)
+                return PartialView();
+
+            var response = await _productService.GetProduct(id);
+            if(response.StatusCode == Domain.Enums.StatusCode.OK)
+            {
+                return PartialView(response.Data);
+            }
+
+            ModelState.AddModelError("", response.Description);
+            return PartialView();
+        }
 
         [HttpPost]
         [Authorize(Roles = "Admin")]
@@ -70,9 +86,18 @@ namespace GamesWorkshop.Controllers
 
             if (ModelState.IsValid)
             {
-                var response = await _productService.Edit(vm);
+                if(vm.Id == 0)
+                {
+					var response = await _productService.CreateProduct(vm);
 
-                return Json(new { description = response.Description });
+					return Json(new { description = response.Description });
+				}
+                else
+                {
+					var response = await _productService.Edit(vm);
+
+					return Json(new { description = response.Description });
+				}
             }
 
             return StatusCode(StatusCodes.Status500InternalServerError);

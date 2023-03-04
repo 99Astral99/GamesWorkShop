@@ -12,6 +12,12 @@
       <th scope="col">Name</th>
       <th scope="col">Price (&#8364;)</th>
       <th scope="col">Amount</th>
+	  <th scope="col">
+           @*<button type="submit" class="btn btn-primary" id="addProductBtnId" asp-for-Id="0">*@
+          <button type="submit" class="btn btn-primary" id="addProductBtnId" onclick="openModal({ url: '/Product/Save', data: '0' })">
+                        Add new product
+          </button>
+			</th>
     </tr>
   </thead>
  <tbody>
@@ -24,13 +30,13 @@
           <td>@product.Amount
           </td>
           <td>
-           <button type="button" class="btn btn-primary" onclick="openModal({ url: '/Product/GetProduct', data: '@product.Id' })" data-toggle="ajax-modal" data-target="Modal">
+           <button type="button" class="btn btn-primary" onclick="openModal({ url: '/Product/Save', data: '@product.Id' })" data-toggle="ajax-modal" data-target="Modal">
                         Edit
           </button>
           </td>
           <td>
 			  <form>
-						<button asp-action="DeleteProduct" asp-controller="Product" asp-route-Id="@product.Id" type="submit" id="deleteBtnId" class="btn btn-dark">Delete</button>
+						<button asp-action="DeleteProduct" asp-controller="Product" asp-route-Id="@product.Id" type="submit" id="deleteBtnId" class="btn btn-secondary"> Delete</button>
 			  </form>
           </td>
         </tr>
@@ -55,11 +61,30 @@
 	</div>
 </div>
 
+
 @section pageScripts
 {
 	<script src="~/js/modal.js"></script>
 	<script>
-		$('#modalSubmitBtnId').on('click', function () {
+        let modal = $('#modalFormId');
+
+        $('#addProductBtnId').on('click', function () {
+           $.ajax({
+              type: 'GET',
+              url : '@Url.Action("Save", "Product")',
+              success: function (response) {
+                  modal.find(".modal-body").html(response);
+                  modal.modal('show')
+              },
+              failure: function () {
+                modal.modal('hide')
+              }
+          });
+       });
+	</script>
+
+    <script>
+        $('#modalSubmitBtnId').on('click', function () {
 			const data = $('#modalFormId').serialize()
 			$.ajax({
 				url: '@Url.Action("Save", "Product")',
@@ -84,5 +109,5 @@
 				}
 			})
 		})
-	</script>
+    </script>
 }
