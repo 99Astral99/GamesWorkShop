@@ -2,6 +2,7 @@ using GamesWorkshop;
 using GamesWorkshop.Domain.Entities;
 using GamesWorkshop.Domain.Mappings;
 using GamesWorshop.DAL;
+using Microsoft.AspNetCore.CookiePolicy;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -44,11 +45,18 @@ builder.Services.AddIdentity<User, Role>(opt =>
 		MaxFailedAccessAttempts = 5
 	};
 })
+
 				.AddEntityFrameworkStores<AppDbContext>()
 				.AddDefaultTokenProviders();
 
-builder.Services.ConfigureApplicationCookie(opt => opt.LoginPath = "/Account/Login");
-builder.Services.ConfigureApplicationCookie(opt => opt.LogoutPath = "/Account/Logout");
+builder.Services.ConfigureApplicationCookie(opt =>
+{
+	opt.LoginPath = "/Account/Login";
+	opt.LogoutPath = "/Account/Logout";
+	opt.ExpireTimeSpan = TimeSpan.FromMinutes(30);
+	opt.Cookie.SameSite = SameSiteMode.None;
+	opt.Cookie.SecurePolicy = CookieSecurePolicy.Always;
+});
 
 builder.Services.InitializeRepositories();
 builder.Services.InitializeServices();
@@ -68,6 +76,12 @@ app.UseStaticFiles();
 app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
+app.UseCookiePolicy(new CookiePolicyOptions
+{
+	MinimumSameSitePolicy = SameSiteMode.None,
+	HttpOnly = HttpOnlyPolicy.Always,
+	Secure = CookieSecurePolicy.Always,
+});
 
 app.MapControllerRoute(
 	name: "default",
