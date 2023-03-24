@@ -62,8 +62,6 @@ namespace GamesWorkshop.Service.Implementations
         {
             try
             {
-                //var users = await _userRepository.GetAll().ToListAsync();
-                //var users = await _userManager.Users.ToListAsync();
                 var users = await _userRoleHelper.GetUsers();
 
                 if (users.Count() == 0)
