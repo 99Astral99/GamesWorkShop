@@ -25,6 +25,8 @@ What you can already do now:
 - You can view a detailed description of the product
 - Adding items to the cart
 
+## User Roles
+
 ### User
 - Register
 - Login
@@ -35,3 +37,7 @@ What you can already do now:
 
 ### Admin
 - Edit products
+- Edit user roles
+
+### Support
+- Has a separate page with letters from users.
