@@ -63,13 +63,17 @@
 									<div class="col-sm-6">
 										<ul class="multi-column-dropdown">
 											<h6>Users</h6>
-											<li><a href="products.html">User management</a></li>
+											<li><a asp-controller="Admin" asp-action="EditUsers">User management</a></li>
 										</ul>
 									</div>
 								</div>
 							</ul>
 							<div class="clearfix"></div>
 						</li>
+					}
+					@if (User.IsInRole("Support"))
+					{
+						<li><a asp-controller="Contact" asp-action="GetSupport">SUPPORT</a></li>
 					}
 					<li><a asp-controller="Contact" asp-action="GetContact">CONTACT</a></li>
 				</ul>

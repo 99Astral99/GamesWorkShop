@@ -1,6 +1,7 @@
 ﻿using GamesWorkshop.Domain.Entities;
 using GamesWorkshop.Service.Implementations;
 using GamesWorkshop.Service.Interfaces;
+using GamesWorshop.DAL.Helpers;
 using GamesWorshop.DAL.Interfaces;
 using GamesWorshop.DAL.Repositories;
 
@@ -26,6 +27,8 @@ namespace GamesWorkshop
 			services.AddScoped<IAccountService, AccountService>();
 			services.AddScoped<IUserAccountService, UserAccountService>();
 			services.AddScoped<IContactService, ContactService>();
+			services.AddScoped<IAdminService, AdminService>();
+			services.AddScoped<IUserRoleHeper, UserRoleHelper>();
 		}
 	}
 }

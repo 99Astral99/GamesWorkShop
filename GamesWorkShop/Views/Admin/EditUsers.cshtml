@@ -1,0 +1,74 @@
+﻿@model List<GamesWorkshop.Domain.View.UserModels.UserRoleViewModel>;
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var roles = Model.Select(r => r.RoleName).Distinct().ToList();
+}
+
+<table class="table" id="usersTableId" style="margin-top:50px;">
+    <thead class="thead-dark">
+        <tr>
+            <th scope="col">Email</th>
+            <th scope="col">Name</th>
+            <th scope="col">Role</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var user in Model)
+        {
+            <tr>
+                <form method="post" id="editRoleFormId_@user.UserId">
+                    <input type="hidden" name="UserId" asp-for="@user.UserId">
+                <td>@user.Email</td>
+                <td>@user.UserName</td>
+                <td>
+                    <select name="RoleName">
+                        <option value="@user.RoleName">@user.RoleName</option>
+                            @foreach (var roleName in roles.Where(x => x != user.RoleName))
+                            {
+                            <option value="@roleName">@roleName</option>
+                            }
+                    </select>
+                </td>
+                <td>
+                    <button type="submit" id="editRoleBtnId_@user.UserId" class="btn btn-primary">
+                        Edit role
+                    </button>
+                </td>
+                </form>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+
+<script>
+    $('button[id^="editRoleBtnId_"]').on('click', function (e) {
+        e.preventDefault();
+        var formId = $(this).attr('id').replace('editRoleBtnId', 'editRoleFormId');
+        var formData = $('#' + formId).serialize();
+        $.ajax({
+            url: '@Url.Action("EditUsers", "Admin")',
+            type: 'POST',
+            data: formData,
+            success: function (response) {
+                Swal.fire({
+                    title: 'Information',
+                    text: response.description,
+                    icon: 'success',
+                    confirmButtonText: 'Ok'
+                })
+            },
+            error: function (data) {
+                Swal.fire({
+                    title: 'Information',
+                    text: "Error",
+                    icon: 'error',
+                    confirmButtonText: 'Ok'
+                })
+            }
+        })
+    })
+</script>
