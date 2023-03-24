@@ -27,5 +27,8 @@ namespace GamesWorkshop.Controllers
 			}
 			return StatusCode(StatusCodes.Status500InternalServerError);
 		}
+
+		[HttpGet]
+		public IActionResult GetSupport() => View();
 	}
 }

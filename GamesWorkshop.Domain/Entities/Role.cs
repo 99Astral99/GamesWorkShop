@@ -2,7 +2,7 @@
 
 namespace GamesWorkshop.Domain.Entities
 {
-    public class Role : IdentityRole<Guid>
+    public class Role : IdentityRole<Guid> 
     {
         public Role(string roleName) : base(roleName)
         {
@@ -10,7 +10,7 @@ namespace GamesWorkshop.Domain.Entities
         }
         public Role()
         {
-
+            
         }
     }
 }

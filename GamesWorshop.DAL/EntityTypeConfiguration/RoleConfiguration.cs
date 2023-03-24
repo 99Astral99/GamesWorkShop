@@ -23,6 +23,14 @@ namespace GamesWorshop.DAL.EntityTypeConfiguration
                     Name = "Admin",
                     NormalizedName = "ADMIN",
                 });
+
+            builder.HasData(
+                new Role()
+                {
+                    Id = new Guid("2FEFCA10-F3F9-424B-BED4-EC5D810CC619"),
+                    Name = "Support",
+                    NormalizedName = "SUPPORT",
+                });
         }
     }
 }
