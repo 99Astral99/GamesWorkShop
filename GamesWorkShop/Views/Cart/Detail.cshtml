@@ -53,13 +53,13 @@ else
 				@foreach (var product in Model)
 				{
 				<div class="cart-header">
-							<a asp-controller="Order" asp-action="DeleteOrder" asp-route-id="@product.Id"><div class="close1"></div></a>			
+				<a asp-controller="Order" asp-action="DeleteOrder" asp-route-id="@product.Id"><div class="close1"></div></a>			
 					<div class="cart-sec simpleCart_shelfItem">
 						<div class="cart-item cyc">
 							<img src="@product.ImageSrc" class="img-responsive" alt="">
 						</div>
 						<div class="cart-item-info">
-							<h3><a style="font-size:30px;" href="#"> @product.ProductName </a><span class="spanCart" style="font-size:25px;">Count: @product.Count</span></h3>
+							<h3><a style="font-size:30px;" asp-controller="Product" asp-action="GetProduct" asp-route-id="@product.ProductId"> @product.ProductName </a><span class="spanCart" style="font-size:25px;">Count: @product.Count</span></h3>
 							<div class="delivery">
 								<p>Price : @product.Price$</p>
 								<span>Delivered in 1-1:30 hours</span>

@@ -11,10 +11,11 @@ namespace GamesWorkshop.Domain.Mappings
             CreateMap<RegisterViewModel, User>()
                 .ForMember(x => x.UserName, opt => opt.MapFrom(x => x.UserName))
                 .ForMember(x => x.Email, opt => opt.MapFrom(x => x.Email));
-                //.ForMember(x => x.NormalizedUserName, opt => opt.MapFrom(x => x.UserName.ToUpper()))
-                //.ForMember(x => x.NormalizedEmail, opt => opt.MapFrom(x => x.Email.ToUpper()));
 
             CreateMap<User, LoginViewModel>();
+            CreateMap<User, UserViewModel>();
+            CreateMap<User, UserRoleViewModel>()
+                .ForMember(x => x.UserId, opt => opt.MapFrom(x => x.Id));
         }
     }
 }

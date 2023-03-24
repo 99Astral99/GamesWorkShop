@@ -43,6 +43,7 @@ namespace GamesWorkshop.Service.Implementations
                                select new OrderViewModel()
                                {
                                    Id = o.Id,
+                                   ProductId = p.Id,
                                    ProductName = p.Name,
                                    ImageSrc = p.ImageSrc,
                                    Count = o.Count,

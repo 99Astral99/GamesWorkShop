@@ -117,6 +117,7 @@ namespace GamesWorkshop.Service.Implementations
 					};
 				}
 
+				vm.Role = "User";
 				var user = _mapper.Map<User>(vm);
 				user.SecurityStamp = Guid.NewGuid().ToString();
 				user.EmailConfirmed = true;
