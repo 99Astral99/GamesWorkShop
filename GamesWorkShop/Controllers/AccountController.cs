@@ -6,65 +6,94 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace GamesWorkshop.Controllers
 {
-    public class AccountController : Controller
-    {
-        private readonly IMapper _mapper;
-        private readonly IAccountService _accountService;
-        public AccountController(IMapper mapper, IAccountService accountService)
-        {
-            _mapper = mapper;
-            _accountService = accountService;
-        }
+	public class AccountController : Controller
+	{
+		private readonly IMapper _mapper;
+		private readonly IAccountService _accountService;
+		public AccountController(IMapper mapper, IAccountService accountService)
+		{
+			_mapper = mapper;
+			_accountService = accountService;
+		}
 
-        [HttpGet]
-        public IActionResult Registration() => View();
-        [HttpPost]
-        public async Task<IActionResult> Registration(RegisterViewModel vm)
-        {
-            if (!ModelState.IsValid)
-            {
-                return View(vm);
-            }
+		[HttpGet]
+		public IActionResult Registration() => View();
 
-            vm.Role = "User";
-            var result = await _accountService.RegistrationAsync(vm);
+		[ValidateAntiForgeryToken]
+		[HttpPost]
+		public async Task<IActionResult> Registration(RegisterViewModel vm)
+		{
+			if (!ModelState.IsValid)
+			{
+				return View(vm);
+			}
 
-            TempData["msg"] = result.Description;
-            if(result.StatusCode == Domain.Enums.StatusCode.OK)
-            {
+			var result = await _accountService.RegistrationAsync(vm);
+
+			if (result.StatusCode == Domain.Enums.StatusCode.OK)
+			{
 				return Json(new { description = result.Description });
 			}
 
-            return BadRequest(result.Description);
-        }
+			return BadRequest(result.Description);
+		}
 
-        [HttpGet]
-        public IActionResult Login() => View();
-        [HttpPost]
-        public async Task<IActionResult> Login(LoginViewModel vm)
-        {
-            if (!ModelState.IsValid)
-            {
-                return View(vm);
-            }
+		[HttpGet]
+		public IActionResult Login(string returnUrl)
+		{
+			if (!string.IsNullOrEmpty(returnUrl) && Url.IsLocalUrl(returnUrl))
+			{
+				TempData["returnUrl"] = returnUrl;
+			}
+			else
+			{
+				TempData["returnUrl"] = Url.Action(nameof(ProductController.Index), "Product");
+			}
+			return View();
+		}
 
-            var result = await _accountService.LoginAsync(vm);
-            if (result.StatusCode == Domain.Enums.StatusCode.OK)
-            {
-                return RedirectToAction(nameof(ProductController.Index), "Product");
-            }
-            else
-            {
-                TempData["msg"] = result.Description;
-                return RedirectToAction(nameof(Login));
-            }
-        }
+		[ValidateAntiForgeryToken]
+		[HttpPost]
+		public async Task<IActionResult> Login(LoginViewModel vm)
+		{
+			if (!ModelState.IsValid)
+			{
+				return View(vm);
+			}
+			var returnUrl = TempData["returnUrl"] as string;
+			var result = await _accountService.LoginAsync(vm);
+			if (result.StatusCode == Domain.Enums.StatusCode.OK)
+			{
+				if (!string.IsNullOrEmpty(returnUrl) && Url.IsLocalUrl(returnUrl) && returnUrl != "/Account/Registration")
+				{
+					return LocalRedirect(returnUrl);
+				}
+				else
+				{
+					return RedirectToAction(nameof(ProductController.Index), "Product");
+				}
 
-        [Authorize]
-        public async Task<IActionResult> Logout()
-        {
-            await _accountService.LogoutAsync();
-            return RedirectToAction(nameof(Login));
-        }
-    }
+			}
+			else
+			{
+				return RedirectToAction(nameof(Login));
+			}
+		}
+
+		[Authorize]
+		public async Task<IActionResult> Logout(string returnUrl)
+		{
+			if (!string.IsNullOrEmpty(returnUrl) && Url.IsLocalUrl(returnUrl))
+			{
+				TempData["returnUrl"] = returnUrl;
+			}
+			else
+			{
+				TempData["returnUrl"] = Url.Action(nameof(Login));
+			}
+
+			await _accountService.LogoutAsync();
+			return Redirect(returnUrl ?? Url.Action(nameof(Login)));
+		}
+	}
 }
