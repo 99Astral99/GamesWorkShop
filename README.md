@@ -20,6 +20,7 @@ You will be able to login, make a purchase of the product.
 
 What you can already do now:
 ### Products
+- Authenticate & Authorize
 - View products on the main page
 - Browse products using categories
 - You can view a detailed description of the product
@@ -28,8 +29,6 @@ What you can already do now:
 ## User Roles
 
 ### User
-- Register
-- Login
 - Edit user profile
 - Change the password
 - View the shopping cart
