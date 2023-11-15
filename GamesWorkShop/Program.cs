@@ -58,6 +58,15 @@ builder.Services.ConfigureApplicationCookie(opt =>
 	opt.Cookie.SecurePolicy = CookieSecurePolicy.Always;
 });
 
+builder.Services.AddHealthChecks();
+
+builder.Services.AddCors(opt => opt.AddPolicy("AllowGamesWorkshopPolicy", builder => builder
+	.WithOrigins("https://www.games-workshop.com/en-FI/Warhammer-40-000")
+	.AllowAnyHeader()
+	.AllowAnyMethod()
+	));
+
+
 builder.Services.InitializeRepositories();
 builder.Services.InitializeServices();
 
@@ -82,6 +91,7 @@ app.UseCookiePolicy(new CookiePolicyOptions
 	HttpOnly = HttpOnlyPolicy.Always,
 	Secure = CookieSecurePolicy.Always,
 });
+app.UseCors("AllowGamesWorkshopPolicy");
 
 app.MapControllerRoute(
 	name: "default",
