@@ -1,0 +1,85 @@
+﻿<div class="banner-top">
+	<div class="container">
+		<nav class="navbar navbar-default" role="navigation">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<div class="logo">
+					<h1>
+						<a asp-controller="Product" asp-action="Index">
+							Games Workshop
+						</a>
+					</h1>
+				</div>
+			</div>
+			<!--/.navbar-header-->
+
+			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+				<ul class="nav navbar-nav">
+					<li><a asp-controller="Product" asp-action="Index">Home</a></li>
+					<li class="dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown">Products <b class="caret"></b></a>
+						<ul class="dropdown-menu multi-column columns-2">
+							<div class="row">
+								<div class="col-sm-6">
+									<ul class="multi-column-dropdown">
+										<h6>NEW IN</h6>
+										<li><a href="products.html">Warhammer Bestsellers</a></li>
+										<li><a href="products.html">Warhammer 40000</a></li>
+										<li><a href="products.html">Warhammer The Horus Heresy</a></li>
+									</ul>
+								</div>
+								<div class="col-sm-6">
+									<ul class="multi-column-dropdown">
+										<h6>CATEGORIES</h6>
+										<li><a asp-controller="Product" asp-action="GetProductsByCategory" asp-route-category="0">Space Marines</a></li>
+										<li><a asp-controller="Product" asp-action="GetProductsByCategory" asp-route-category="1">Armies Of The Imperium</a></li>
+										<li><a asp-controller="Product" asp-action="GetProductsByCategory" asp-route-category="2">Armies of Chaos</a></li>
+										<li><a asp-controller="Product" asp-action="GetProductsByCategory" asp-route-category="3">Xenos Armies</a></li>
+										<li><a asp-controller="Product" asp-action="GetProductsByCategory" asp-route-category="4">Terrain</a></li>
+										<li><a asp-controller="Product" asp-action="GetProductsByCategory" asp-route-category="5">Ways to play</a></li>
+									</ul>
+								</div>
+								<div class="clearfix"></div>
+							</div>
+						</ul>
+					</li>
+					@if (User.IsInRole("Admin"))
+					{
+						<li class="dropdown">
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown">Admin <b class="caret"></b></a>
+							<ul class="dropdown-menu multi-column columns-2">
+								<div class="row">
+									<div class="col-sm-6">
+										<ul class="multi-column-dropdown">
+											<h6>Products</h6>
+											<li><a asp-controller="Admin" asp-action="EditProducts">Edit products</a></li>
+										</ul>
+									</div>
+									<div class="col-sm-6">
+										<ul class="multi-column-dropdown">
+											<h6>Users</h6>
+											<li><a asp-controller="Admin" asp-action="EditUsers">User management</a></li>
+										</ul>
+									</div>
+								</div>
+							</ul>
+							<div class="clearfix"></div>
+						</li>
+					}
+					@if (User.IsInRole("Support"))
+					{
+						<li><a asp-controller="Contact" asp-action="GetSupport">SUPPORT</a></li>
+					}
+					<li><a asp-controller="Contact" asp-action="GetContact">CONTACT</a></li>
+				</ul>
+			</div>
+			<!--/.navbar-collapse-->
+		</nav>
+		<!--/.navbar-->
+	</div>
+</div>

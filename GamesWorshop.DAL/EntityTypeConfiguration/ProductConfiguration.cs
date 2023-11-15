@@ -10,16 +10,20 @@ namespace GamesWorshop.DAL.Configurations
         {
             builder.HasKey(b => b.Id);
             builder.HasIndex(b => b.Id);
+            builder.HasIndex(b => b.CreatedDate);
 
             builder.Property(b => b.Name)
                 .HasMaxLength(50)
                 .IsRequired();
 
-            builder.Property(b => b.Description).HasMaxLength(200);
+            builder.Property(d => d.Description)
+                .HasColumnType("text");
+            builder.Property(f => f.Features)
+                .HasColumnType("text");
 
             builder.Property(b => b.Amount).IsRequired();
             builder.Property(b => b.Price).IsRequired();
-            builder.Property(b => b.Category).IsRequired();
+            builder.Property(b => b.ImageSrc).IsRequired();
         }
     }
 }

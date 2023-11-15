@@ -1,0 +1,81 @@
+﻿@model List<GamesWorkshop.Domain.View.OrderModels.OrderViewModel>
+
+@{
+	ViewData["Title"] = "Detail";
+	Layout = "~/Views/Shared/_Layout.cshtml";
+
+	double total = 0;
+	foreach (var product in Model)
+	{
+		total += product.Count * product.Price;
+	}
+}
+
+@if(Model == null || Model.Count == 0)
+{
+    <div class="card" style="margin:200px">
+        <div class="card-body">
+			<p style="text-align:center; font-size:large">Cart is empty.</p>
+        </div>
+    </div>
+}
+else
+{
+	<div class="cart-items">
+		<div class="container">
+			<div class="dreamcrub">
+				<ul class="breadcrumbs">
+					<li class="home">
+						<a asp-controller="Product" asp-action="Index" title="Go to Home Page">Home</a>&nbsp;
+						<span>&gt;</span>
+					</li>
+					<li class="women">
+						Cart
+					</li>
+				</ul>
+				<ul class="previous">
+					<li><a asp-controller="Product" asp-action="Index">Back to Previous Page</a></li>
+				</ul>
+				<div class="clearfix"></div>
+			</div>
+			<h2>MY SHOPPING BAG (@Model.Count)</h2>
+			<div class="cart-gd">
+				
+				<script>
+					$(document).ready(function (c) {
+						$('.close1').on('click', function (c) {
+							$('.cart-header').fadeOut('slow', function (c) {
+								$('.cart-header').remove();
+							});
+						});
+					});
+				</script>
+				@foreach (var product in Model)
+				{
+				<div class="cart-header">
+				<a asp-controller="Order" asp-action="DeleteOrder" asp-route-id="@product.Id"><div class="close1"></div></a>			
+					<div class="cart-sec simpleCart_shelfItem">
+						<div class="cart-item cyc">
+							<img src="@product.ImageSrc" class="img-responsive" alt="">
+						</div>
+						<div class="cart-item-info">
+							<h3><a style="font-size:30px;" asp-controller="Product" asp-action="GetProduct" asp-route-id="@product.ProductId"> @product.ProductName </a><span class="spanCart" style="font-size:25px;">Count: @product.Count</span></h3>
+							<div class="delivery">
+								<p>Price : @product.Price$</p>
+								<span>Delivered in 1-1:30 hours</span>
+								<div class="clearfix"></div>
+							</div>
+						</div>
+						<div class="clearfix"></div>
+					</div>
+				</div>
+				}	
+				<div class="card" style="width: 18rem;">
+				  <div class="card-body">
+						<h5 class="card-title" style="font-size:29px;">Total:@total$</h5>
+				  </div>
+				</div>
+			</div>
+		</div>
+	</div>
+}

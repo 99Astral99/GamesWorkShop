@@ -1,0 +1,97 @@
+﻿@model GamesWorkshop.Domain.View.UserModels.RegisterViewModel
+@{
+    ViewData["Title"] = "Register";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!-- registration-form -->
+<div class="registration-form">
+	<div class="container">
+	<div class="dreamcrub">
+			   	 <ul class="breadcrumbs">
+                    <li class="home">
+                       <a asp-controller="Product" asp-action="Index" title="Go to Home Page">Home</a>&nbsp;
+                       <span>&gt;</span>
+                    </li>
+                    <li class="women">
+                       Registration
+                    </li>
+                </ul>
+                <ul class="previous">
+                	<li><a href="index.html">Back to Previous Page</a></li>
+                </ul>
+                <div class="clearfix"></div>
+			   </div>
+		<h2>Registration</h2>
+		<div class="registration-grids">
+			<div class="reg-form">
+				<div class="reg">
+					 <p>Welcome, please enter the following details to continue.</p>
+					 <p>If you have previously registered with us, <a asp-controller="Account" asp-action="Login">click here</a></p>
+					 <form method="post" id="registrationFormId">
+						 <ul>
+							 @*asp-controller="Account" asp-action="Registration"*@ 
+							 <li class="text-info">UserName: </li>
+							 <li><input asp-for="UserName" type="text" value=""></li>
+							 <span class="text-danger" asp-validation-for="UserName"></span>
+						 </ul>
+						 <ul>
+							 <li class="text-info">Email: </li>
+							 <li><input asp-for="Email" type="text" value=""></li>
+							 <span class="text-danger" asp-validation-for="Email"></span>
+						 </ul>
+						 <ul>
+							 <li class="text-info">Password: </li>
+							 <li><input asp-for="Password" type="password" value=""></li>
+							 <span class="text-danger" asp-validation-for="Password"></span>
+						 </ul>
+						 <ul>
+							 <li class="text-info">Re-enter Password:</li>
+							 <li><input asp-for="ConfirmPassword" type="password" value=""></li>
+							 <span class="text-danger" asp-validation-for="ConfirmPassword"></span>
+						 </ul>					
+						 <input type="submit" id="inputRegistrationId" value="REGISTER NOW">
+						 <p class="click">By clicking this button, you are agree to my  <a href="#">Policy Terms and Conditions.</a></p> 
+					 </form>
+				 </div>
+			</div>
+			<div class="reg-right">
+				 <div class="strip"></div>
+				 <p><h3>Welcome!</h3>
+				 <div class="strip"></div>
+				 <p style="	color:grey;">Join the Imperium as soon as possible!</p>
+			</div>
+			<div class="clearfix"></div>
+		</div>
+	</div>
+</div>
+
+@section pageScripts{
+	<script>
+		$('#inputRegistrationId').on('click', function (e) {
+			e.preventDefault();
+			$.ajax({
+				url: '@Url.Action("Registration", "Account")',
+				type: 'POST',
+				data: $('#registrationFormId').serialize(),
+
+				success: function (response) {
+					Swal.fire({
+						title: 'Information',
+						text: response.description,
+						icon: 'success',
+						confirmButtonText: 'Ok'
+					})
+				},
+				error: function (data) {
+					Swal.fire({
+						title: 'Information',
+						text: "Validation error",
+						icon: 'error',
+						confirmButtonText: 'Ok'
+					})
+				}
+			})
+		})
+	</script>
+}

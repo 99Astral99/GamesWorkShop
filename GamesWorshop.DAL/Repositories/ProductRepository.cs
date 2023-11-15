@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace GamesWorshop.DAL.Repositories
 {
-    public class ProductRepository : IProductRepository
+    public class ProductRepository:IBaseRepository<Product>
     {
         private readonly AppDbContext _dbContext;
         public ProductRepository(AppDbContext dbContext)
@@ -13,40 +13,21 @@ namespace GamesWorshop.DAL.Repositories
             _dbContext = dbContext;
         }
 
-        public async Task<bool> Create(Product entity)
+        public async Task Create(Product entity)
         {
             await _dbContext.Products.AddAsync(entity);
             await _dbContext.SaveChangesAsync();
-
-            return true;
         }
 
-        public async Task<bool> Delete(Product entity)
+        public async Task Delete(Product entity)
         {
             _dbContext.Products.Remove(entity);
             await _dbContext.SaveChangesAsync();
-
-            return true;
         }
 
-        public async Task<Product> Get(int id)
+        public IQueryable<Product> GetAll()
         {
-            return await _dbContext.Products.FirstOrDefaultAsync(p => p.Id == id);
-        }
-
-        public async Task<IEnumerable<Product>> GetProductsByCategory(int category)
-        {
-            return await _dbContext.Products.Where(p => (int)p.Category == category).ToListAsync();
-        }
-
-        public async Task<Product> GetByName(string name)
-        {
-            return await _dbContext.Products.FirstOrDefaultAsync(p => p.Name == name);
-        }
-
-        public async Task<IEnumerable<Product>> Select()
-        {
-            return await _dbContext.Products.ToListAsync();
+            return _dbContext.Products.AsQueryable();
         }
 
         public async Task<Product> Update(Product entity)

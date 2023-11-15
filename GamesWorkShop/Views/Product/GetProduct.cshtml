@@ -1,0 +1,373 @@
+﻿@model GamesWorkshop.Domain.View.ProductModels.ProductDetailsViewModel;
+@{
+	ViewData["Title"] = "GetProduct";
+	Layout = "~/Views/Shared/_Layout.cshtml";
+
+	string[] features = { "" };
+	if(Model.Features!=null){
+		features = Model.Features.Split("\n");
+	}
+	else{
+		features[0] = "High quality";
+	}
+
+	string[] description = { "" };
+	if(Model.Description!=null){
+		description = Model.Description.Split("\n");
+	}
+}
+
+<!-- content-section-starts -->
+	<div class="container">
+	   <div class="products-page">
+			<div class="products">
+				<div class="product-listy">
+					<h2>Our Products</h2>
+					<ul class="product-list">
+						<li><a asp-controller="Product" asp-action="GetProducts">Get avaliable products</a></li>
+						<li><a asp-controller="Product" asp-action="GetProductsByCategory" asp-route-category="0">Space Marines</a></li>
+						<li><a asp-controller="Product" asp-action="GetProductsByCategory" asp-route-category="1">Armies Of The Imperium</a></li>
+						<li><a asp-controller="Product" asp-action="GetProductsByCategory" asp-route-category="2">Armies of Chaos</a></li>
+						<li><a asp-controller="Product" asp-action="GetProductsByCategory" asp-route-category="3">Xenos Armies</a></li>
+						<li><a asp-controller="Product" asp-action="GetProductsByCategory" asp-route-category="4">Terrain</a></li>
+						<li><a asp-controller="Product" asp-action="GetProductsByCategory" asp-route-category="5">Ways to play</a></li>
+					</ul>
+				</div>
+				<div class="latest-bis">
+					<a asp-controller="Product" asp-route-id="26" asp-action="GetProduct"><img src="https://www.games-workshop.com/resources/catalog/product/920x950/99120110043_NECMonolithLead.jpg" class="img-responsive" alt="" /></a>
+					<div class="offer">
+						<p>40%</p>
+					</div>
+				</div> 	
+				<div class="tags">
+						<h4 class="tag_head">Tags Widget</h4>
+						 <ul class="tags_links">
+							<li><a href="#">Warhammer40k</a></li>
+							<li><a href="#">Chaos</a></li>
+							<li><a href="#">Horus Eresy buildpack</a></li>
+							<li><a href="#">Theme</a></li>
+							<li><a href="#">Soldiers</a></li>
+							<li><a href="#">Emperor Traitors</a></li>
+						</ul>
+
+					 </div>
+
+			</div>
+			<div class="new-product">
+				<div class="col-md-5 zoom-grid">
+					<div class="flexslider">
+						<ul class="slides">
+							<li data-thumb="@Model.ImageSrc">
+							<div class="thumb-image"> <img src="@Model.ImageSrc" data-imagezoom="true" class="img-responsive" alt="" /> </div>
+							</li>
+							@if(Model.Image1!=null){
+								<li data-thumb="@Model.Image1">
+									<div class="thumb-image"> <img src="@Model.Image1" data-imagezoom="true" class="img-responsive my-image" alt="" /> </div>
+								</li>
+							}
+							@if(@Model.Image2!=null){
+								<li data-thumb="@Model.Image2">
+								<div class="thumb-image"> <img src="@Model.Image2" data-imagezoom="true" class="img-responsive my-image" alt="" /> </div>
+								</li>
+							}
+							@if(Model.Image3!=null){
+								<li data-thumb="@Model.Image3">
+								<div class="thumb-image"> <img src="@Model.Image3" data-imagezoom="true" class="img-responsive my-image" alt="" /> </div>
+								</li>
+							}
+							@if(Model.Image4!=null){
+								<li data-thumb="@Model.Image4">
+								<div class="thumb-image"> <img src="@Model.Image4" data-imagezoom="true" class="img-responsive my-image" alt="" /> </div>
+								</li>
+							}
+							@if(Model.Image5!=null){
+								<li data-thumb="@Model.Image5">
+								<div class="thumb-image"> <img src="@Model.Image5" data-imagezoom="true" class="img-responsive my-image" alt="" /> </div>
+								</li>
+							}
+						</ul>
+					</div>
+				</div>
+				<div class="col-md-7 dress-info">
+					<div class="dress-name">
+						<h3>@Model.Name</h3>
+						<span>@Model.Price$</span>
+						<div class="clearfix"></div>
+						@foreach (var f in features)
+						{
+							<p>&#8226 @f</p>
+						}
+					</div>
+					<form method="post" id="AddToCartFormId">
+						<input hidden asp-for="@Model.Id"/>
+					<div class="span span1">
+						<p class="left">Quantity</p>
+						<p class="right">
+							<span class="selection-box">
+								<select class="domains valid" name="count">
+									<option selected="selected" value="1">1</option>
+									<option value="2" >2</option>
+									<option value="3">3</option>
+									<option value="4">4</option>
+									<option value="5">5</option>
+								</select>
+							</span>
+						</p>
+
+						<div class="card-buttons-group purchase">
+							<button class="btn btn-primary item_add" type="submit" id="AddToCartBtnId">Add to cart</button>
+						</div>
+						<div class="clearfix"></div>
+					</div>
+					</form>
+					<div class="purchase">
+						<div class="social-icons">
+							<ul>
+								<li><a class="facebook1" href="#"></a></li>
+								<li><a class="twitter1" href="#"></a></li>
+								<li><a class="googleplus1" href="#"></a></li>
+							</ul>
+						</div>
+						<div class="clearfix"></div>
+					</div>
+				<script src="~/js/imagezoom.js"></script>
+					<script defer src="~/js/jquery.flexslider.js"></script>
+					<script>
+						$(window).load(function() {
+						  $('.flexslider').flexslider({
+							animation: "slide",
+							controlNav: "thumbnails"
+						  });
+						});
+					</script>
+				</div>
+				<div class="clearfix"></div>
+					<div class="reviews-tabs">
+
+	  <ul class="nav nav-tabs responsive hidden-xs hidden-sm" id="myTab">
+		<li class="test-class active"><a class="deco-none misc-class" href="#how-to"> Description</a></li>
+		<li class="test-class"><a href="#features">Specifications</a></li>
+		<li class="test-class"><a class="deco-none" href="#source">Reviews (7)</a></li>
+	  </ul>
+
+	  <div class="tab-content responsive hidden-xs hidden-sm">
+		<div class="tab-pane active" id="how-to">
+		@foreach (var d in description)
+		{
+			<p class="tab-text">@d</p><br> 
+		}   
+		</div>
+
+		<div class="tab-pane" id="source">
+		  <div class="response">
+						<div class="media response-info">
+							<div class="media-left response-text-left">
+								<a href="#">
+									<img class="media-object" src="~/images/icon1.png" alt="" />
+								</a>
+								<h5><a href="#">Username</a></h5>
+							</div>
+							<div class="media-body response-text-right">
+								<p>Incredibly stuff!</p>
+								<ul>
+									<li>MARCH 21, 2015</li>
+									<li><a href="single.html">Reply</a></li>
+								</ul>
+							</div>
+							<div class="clearfix"> </div>
+						</div>
+						<div class="media response-info">
+							<div class="media-left response-text-left">
+								<a href="#">
+									<img class="media-object" src="~/images/icon1.png" alt="" />
+								</a>
+								<h5><a href="#">Username</a></h5>
+							</div>
+							<div class="media-body response-text-right">
+								<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit,There are many variations of passages of Lorem Ipsum available, 
+									sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+								<ul>
+									<li>MARCH 26, 2054</li>
+									<li><a href="single.html">Reply</a></li>
+								</ul>		
+							</div>
+							<div class="clearfix"> </div>
+						</div>
+						<div class="media response-info">
+							<div class="media-left response-text-left">
+								<a href="#">
+									<img class="media-object" src="~/images/icon1.png" alt="" />
+								</a>
+								<h5><a href="#">Username</a></h5>
+							</div>
+							<div class="media-body response-text-right">
+								<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit,There are many variations of passages of Lorem Ipsum available, 
+									sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+								<ul>
+									<li>MAY 25, 2015</li>
+									<li><a href="single.html">Reply</a></li>
+								</ul>		
+							</div>
+							<div class="clearfix"> </div>
+						</div>
+						<div class="media response-info">
+							<div class="media-left response-text-left">
+								<a href="#">
+									<img class="media-object" src="~/images/icon1.png" alt="" />
+								</a>
+								<h5><a href="#">Username</a></h5>
+							</div>
+							<div class="media-body response-text-right">
+								<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit,There are many variations of passages of Lorem Ipsum available, 
+									sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+								<ul>
+									<li>FEB 13, 2015</li>
+									<li><a href="single.html">Reply</a></li>
+								</ul>		
+							</div>
+							<div class="clearfix"> </div>
+						</div>
+						<div class="media response-info">
+							<div class="media-left response-text-left">
+								<a href="#">
+									<img class="media-object" src="~/images/icon1.png" alt="" />
+								</a>
+								<h5><a href="#">Username</a></h5>
+							</div>
+							<div class="media-body response-text-right">
+								<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit,There are many variations of passages of Lorem Ipsum available, 
+									sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+								<ul>
+									<li>JAN 28, 2015</li>
+									<li><a href="single.html">Reply</a></li>
+								</ul>		
+							</div>
+							<div class="clearfix"> </div>
+						</div>
+						<div class="media response-info">
+							<div class="media-left response-text-left">
+								<a href="#">
+									<img class="media-object" src="~/images/icon1.png" alt="" />
+								</a>
+								<h5><a href="#">Username</a></h5>
+							</div>
+							<div class="media-body response-text-right">
+								<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit,There are many variations of passages of Lorem Ipsum available, 
+									sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+								<ul>
+									<li>APR 18, 2015</li>
+									<li><a href="single.html">Reply</a></li>
+								</ul>		
+							</div>
+							<div class="clearfix"> </div>
+						</div>
+						<div class="media response-info">
+							<div class="media-left response-text-left">
+								<a href="#">
+									<img class="media-object" src="~/images/icon1.png" alt="" />
+								</a>
+								<h5><a href="#">Username</a></h5>
+							</div>
+							<div class="media-body response-text-right">
+								<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit,There are many variations of passages of Lorem Ipsum available, 
+									sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+								<ul>
+									<li>DEC 25, 2014</li>
+									<li><a href="single.html">Reply</a></li>
+								</ul>		
+							</div>
+							<div class="clearfix"> </div>
+						</div>
+					</div>
+		</div>
+	  </div>		
+	</div>
+			</div>
+			<div class="clearfix"></div>
+			</div>
+   </div>
+   <div class="other-products products-grid">
+		<div class="container">
+			<header>
+				<h3 class="like text-center">Related Products</h3>   
+			</header>			
+					<div class="col-md-4 product simpleCart_shelfItem text-center">
+						<a asp-controller="Product" asp-action="GetProduct" asp-route-Id="20"><img src="https://www.games-workshop.com/resources/catalog/product/600x620/99120103075_MozrogLead.jpg" alt="" /></a>
+						<div class="mask">
+							<a asp-controller="Product" asp-action="GetProduct" asp-route-Id="20">Quick View</a>
+						</div>
+						<a class="product_name" asp-controller="Product" asp-action="GetProduct" asp-route-Id="20">Mozrog Skragbad</a>
+						<p><a class="item_add" href="#"><i></i> <span class="item_price">$42.50</span></a></p>
+					</div>
+					<div class="col-md-4 product simpleCart_shelfItem text-center">
+						<a asp-controller="Product" asp-action="GetProduct" asp-route-Id="22"><img src="https://www.games-workshop.com/resources/catalog/product/920x950/99120116002_SkitariiRangers01.jpg" alt="" /></a>
+						<div class="mask">
+							<a asp-controller="Product" asp-action="GetProduct" asp-route-Id="22">Quick View</a>
+						</div>
+						<a class="product_name" asp-controller="Product" asp-action="GetProduct" asp-route-Id="22">Skitarii Rangers</a>
+						<p><a class="item_add" href="#"><i></i> <span class="item_price">$40</span></a></p>
+					</div>
+					<div class="col-md-4 product simpleCart_shelfItem text-center">
+						<a asp-controller="Product" asp-action="GetProduct" asp-route-Id="25"><img src="https://www.games-workshop.com/resources/catalog/product/920x950/99120101184_SpaceMarineAggressors01.jpg" alt="" /></a>
+						<div class="mask">
+							<a asp-controller="Product" asp-action="GetProduct" asp-route-Id="25">Quick View</a>
+						</div>
+						<a class="product_name" asp-controller="Product" asp-action="GetProduct" asp-route-Id="25">Primaris Aggressors</a>
+						<p><a class="item_add" href="#"><i></i> <span class="item_price">$42.50</span></a></p>
+					</div>
+					<div class="clearfix"></div>
+				   </div>
+				   </div>
+
+ <script src="~/js/responsive-tabs.js"></script>
+	<script type="text/javascript">
+	  $( '#myTab a' ).click( function ( e ) {
+		e.preventDefault();
+		$( this ).tab( 'show' );
+	  } );
+
+	  $( '#moreTabs a' ).click( function ( e ) {
+		e.preventDefault();
+		$( this ).tab( 'show' );
+	  } );
+
+	  ( function( $ ) {
+		  // Test for making sure event are maintained
+		  $( '.js-alert-test' ).click( function () {
+			alert( 'Button Clicked: Event was maintained' );
+		  } );
+		  fakewaffle.responsiveTabs( [ 'xs', 'sm' ] );
+	  } )( jQuery );
+
+	</script>
+
+
+@section pageScripts{
+	<script>
+		$('#AddToCartBtnId').on('click', function (e) {
+			e.preventDefault();
+			$.ajax({
+				url: '@Url.Action("CreateOrder", "Order")',
+				type: 'POST',
+				data: $('#AddToCartFormId').serialize(),
+
+				success: function (response) {
+					Swal.fire({
+						title: 'Information',
+						text: response.description,
+						icon: 'success',
+						confirmButtonText: 'Ok'
+					})
+				},
+				error: function (data) {
+					Swal.fire({
+						title: 'Information',
+						text: "Error",
+						icon: 'error',
+						confirmButtonText: 'Ok'
+					})
+				}
+			})
+		})
+	</script>
+}
