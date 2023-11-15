@@ -84,16 +84,16 @@
 				</div>
 				<div class="clearfix"></div>
 				<div class="container">
-					<div class="main-content">
+					<div class="main-content2">
 						<div class="products-grid">
 							@foreach (var product in Model)
 							{
-								<div class="col-md-4 product simpleCart_shelfItem text-center">
+								<div class="col-md-41 product simpleCart_shelfItem text-center">
 									<a asp-controller="Product" asp-action="GetProduct" asp-route-id="@product.Id"><img src="@product.ImageSrc" alt="" /></a>
 									<div class="mask">
 										<a asp-controller="Product" asp-action="GetProduct" asp-route-id="@product.Id">Quick View</a>
 									</div>
-									<a class="product_name" asp-controller="Product" asp-action="GetProduct" asp-route-Id="@product.Id" style="font-size:12px;">@product.Name</a>
+									<a class="product_name" asp-controller="Product" asp-action="GetProduct" asp-route-Id="@product.Id" style="font-size:13px;">@product.Name</a>
 									<p><a asp-controller="Product" asp-action="GetProduct" asp-route-Id="@product.Id"><i></i> <span class="item_price">@product.Price$</span></a></p>
 								</div>
 							}
