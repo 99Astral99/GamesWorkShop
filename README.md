@@ -1,6 +1,15 @@
+
 # GamesWorkShop
 
-This is my new pet project, based on .NET 6 (MVC). This will be a store selling collectible figures from the Warhammer 40k universe.
+This is my pet project, based on .NET 6 (MVC). This will be a store selling collectible figures from the Warhammer 40k universe.
+
+
+## Preview
+
+![Main](https://github.com/99Astral99/GamesWorkShop/blob/master/GamesWorkShop/wwwroot/images/Screenshots/1.main_preview.png?raw=true)
+
+![Main](https://github.com/99Astral99/GamesWorkShop/blob/master/GamesWorkShop/wwwroot/images/Screenshots/2.page_preview.png?raw=true)
+
 
 ## Tech stack
 - .NET 6 MVC
